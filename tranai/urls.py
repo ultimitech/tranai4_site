@@ -17,4 +17,5 @@ urlpatterns = [
     path('documents/<document_id>/translations/', views.index_document_translations, name='index-document-translations'),
     path('documents/<document_id>/translations/<translation_id>/', views.show_document_translation, name='show-document-translation'),
     path('documents/<document_id>/translations/new', views.create_document_translation, name='create-document-translation'),
+    path('documents/<document_id>/translations/<translation_id>/edit', views.update_document_translation, name='update-document-translation'),
 ]
