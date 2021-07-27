@@ -23,8 +23,8 @@
       <td>{{ document.tod }}</td>
       <td>{{ document.dow }}</td>
       <td>{{ document.title }}</td>
-      <td><a href="">Edit</a></td> <!--% url 'update-document' document.id %-->
-      <td><a href="">Delete</a></td> <!--% url 'delete-document' document.id %-->
+      <td><a href="{% url 'update-document' document.id %}">Edit</a></td> <!---->
+      <td><a href="{% url 'delete-document' document.id %}">Delete</a></td> <!---->
     </tr>
 {% endfor %}
   </tbody>
