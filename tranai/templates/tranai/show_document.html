@@ -39,7 +39,7 @@
     <tbody>
   {% for translation in document.translations.all %}
       <tr>
-        <th scope="row"><a href="">{{ translation.id }}</a></th> <!--% url 'show-document-translation' document.id translation.id %-->
+        <th scope="row"><a href="{% url 'show-document-translation' document.id translation.id %}">{{ translation.id }}</a></th> <!---->
         <!-- <td>{{ translation.id }}</td> -->
         <td>{{ translation.lan }}</td>
         <td>{{ translation.tran_title }}</td>
