@@ -160,3 +160,15 @@ def update_document_translation(request, document_id, translation_id):
   elif request.method == 'GET':
     form = TranslationForm(initial={'lan': translation.lan, 'tran_title': translation.tran_title, 'eng_tran': translation.eng_tran, 'descrip': translation.descrip, 'blkc': translation.blkc, 'subc': translation.subc, 'senc': translation.senc, 'xcrip': translation.xcrip, 'li': translation.li, 'pubdate': translation.pubdate, 'version': translation.version })
     return render(request, 'tranai/update_document_translation.html', {'document': document, 'translation': translation, 'form': form})
+
+def delete_document_translation(request, document_id, translation_id):
+  translation = Translation.objects.get(pk=translation_id)
+  document = Document.objects.get(pk=document_id)
+  try:
+    translation.delete()
+    print('Translation delete success')
+  except Exception as e:
+    print('Translation delete failure: ' + e)
+  # return redirect(f'/documents/{document_id}/translations/')
+  return redirect(f'/documents/{document_id}/')
+

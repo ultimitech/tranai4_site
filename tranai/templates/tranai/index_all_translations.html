@@ -35,8 +35,8 @@
       <td>{{ translation.xcrip }}</td>
       <td>{{ translation.li }}</td>
       <td>{{ translation.document }}</td>
-      <td><a href="">Edit</a></td><!--% url 'update-document-translation' translation.document.id translation.id %-->
-      <td><a href="">Delete</a></td><!--% url 'delete-document-translation' translation.document.id translation.id %-->
+      <td><a href="{% url 'update-document-translation' translation.document.id translation.id %}">Edit</a></td><!---->
+      <td><a href="{% url 'delete-document-translation' translation.document.id translation.id %}">Delete</a></td><!---->
     </tr>
 {% endfor %}
   </tbody>
