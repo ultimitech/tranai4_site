@@ -14,11 +14,11 @@
   <strong>Title:</strong>&nbsp;&nbsp;{{ document.title }}<br>
   <!-- </center> -->
   <hr>
-  <a class="btn btn-outline-primary btn-sm" href="">Edit</a> <!--% url 'update-document' document.id %-->
-  <a class="btn btn-outline-danger btn-sm" href="">Delete</a> <!--% url 'delete-document' document.id %-->
+  <a class="btn btn-outline-primary btn-sm" href="{% url 'update-document' document.id %}">Edit</a> <!---->
+  <a class="btn btn-outline-danger btn-sm" href="{% url 'delete-document' document.id %}">Delete</a> <!---->
   <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Documents</a>
   &nbsp;
-  <a class="btn btn-outline-secondary btn-sm" href="">New Document</a> <!--% url 'create-document' %-->
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Document</a> <!---->
   <a class="btn btn-outline-secondary btn-sm" href="">New Translation</a><br><br> <!--% url 'create-document-translation' document.id %-->
   <center><h2>Translations</h2></center>
   <table class="table table-hover">
