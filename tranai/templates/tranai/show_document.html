@@ -19,7 +19,7 @@
   <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Documents</a>
   &nbsp;
   <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Document</a> <!---->
-  <a class="btn btn-outline-secondary btn-sm" href="">New Translation</a><br><br> <!--% url 'create-document-translation' document.id %-->
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document-translation' document.id %}">New Translation</a><br><br> <!---->
   <center><h2>Translations</h2></center>
   <table class="table table-hover">
     <thead>
