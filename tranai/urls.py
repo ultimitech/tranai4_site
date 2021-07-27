@@ -12,6 +12,8 @@ urlpatterns = [
     path('documents/<document_id>/delete', views.delete_document, name='delete-document'),
 
     # Translation
+    path('all_translations', views.index_all_translations, name='index-all-translations'),
+
     path('documents/<document_id>/translations/<translation_id>/', views.show_document_translation, name='show-document-translation'),
 
 ]

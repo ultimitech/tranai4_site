@@ -1,0 +1,44 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+
+<center><h2>All Translations</h2></center>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Language</th>
+      <th scope="col">Translated Title</th>
+      <th scope="col">ENG Translation</th>
+      <th scope="col">Description</th>
+      <th scope="col">Block Count</th>
+      <th scope="col">Sub-block Count</th>
+      <th scope="col">Sentence Count</th>
+      <th scope="col">Transcription</th>
+      <th scope="col">Lookup Imported</th>
+      <th scope="col">Document</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for translation in translation_list %}
+    <tr>
+      <th scope="row"><a href="">{{ translation.id }}</th> <!--% url 'show-translation' translation.id %-->
+      <td>{{ translation.lan }}</td>
+      <td>{{ translation.tran_title }}</td>
+      <td>{{ translation.eng_tran }}</td>
+      <td>{{ translation.descrip }}</td>
+      <td>{{ translation.blkc }}</td>
+      <td>{{ translation.subc }}</td>
+      <td>{{ translation.senc }}</td>
+      <td>{{ translation.xcrip }}</td>
+      <td>{{ translation.li }}</td>
+      <td>{{ translation.document }}</td>
+      <td><a href="">Edit</a></td><!--% url 'update-document-translation' translation.document.id translation.id %-->
+      <td><a href="">Delete</a></td><!--% url 'delete-document-translation' translation.document.id translation.id %-->
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+{% endblock %}

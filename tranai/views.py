@@ -94,6 +94,10 @@ def delete_document(request, document_id):
 # Translation
 ###############################################################################
 
+def index_all_translations(request):
+  translation_list = Translation.objects.all()
+  return render(request, 'tranai/index_all_translations.html', {'translation_list': translation_list})
+
 def show_document_translation(request, document_id, translation_id):
   # return redirect('/')
   # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
