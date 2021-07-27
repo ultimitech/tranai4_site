@@ -59,6 +59,26 @@ def create_document(request):
     # print('get')
     return render(request, 'tranai/create_document.html', {'form': form})
 
+def update_document(request, document_id):
+  document = Document.objects.get(pk=document_id)
+  form = DocumentForm(initial={'dod': document.dod, 'tod': document.tod, 'dow': document.dow, 'title': document.title, 'descriptor': document.descriptor})
+  if request.method == 'POST':
+    form = DocumentForm(request.POST, instance=document)
+    if form.is_valid():
+      try:
+        form.save()
+        model = form.instance
+        print('Document id=' + document_id + ' updated successfully')
+        return redirect(f'/documents/{document_id}/')
+      except Exception as e:
+        print('Document update failure: ' + e)
+        pass
+    else:
+      print('form is not valid')
+  elif request.method == 'GET':
+    form = DocumentForm(initial={'dod': document.dod, 'tod': document.tod, 'dow': document.dow, 'descriptor': document.descriptor, 'title': document.title })
+    return render(request, 'tranai/update_document.html', {'document': document, 'form': form})
+
 ###############################################################################
 # Translation
 ###############################################################################
