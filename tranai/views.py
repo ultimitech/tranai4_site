@@ -1,8 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Document, Translation
+from .forms import DocumentForm#, TranslationForm, TaskForm
+
 # def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
 def home(request):
   name = 'John'
@@ -38,6 +40,24 @@ def show_document(request, document_id):
   translations = document.translations
   return render(request, 'tranai/show_document.html', {'document': document, 'translations': translations})
   # return render(request, 'tranai/show_document.html', {'document': document})
+
+def create_document(request):
+  if request.method == 'POST':
+    form = DocumentForm(request.POST)
+    if form.is_valid():
+      try:
+        document = form.save()
+        model = form.instance
+        # return redirect('index-documents')
+        return redirect(f'/documents/{document.id}/')
+      except:
+        pass
+    # print('post')
+    # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
+  elif request.method == 'GET':
+    form = DocumentForm()
+    # print('get')
+    return render(request, 'tranai/create_document.html', {'form': form})
 
 ###############################################################################
 # Translation
