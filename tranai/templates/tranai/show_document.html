@@ -1,0 +1,58 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+<!-- <center> -->
+  <!-- <h2>Document: <i>{{ document }}</i></h2> -->
+  <h2>Document</h2>
+  <!-- <br> -->
+  <strong>Id:</strong>&nbsp;&nbsp;{{ document.id }}<br>
+  <strong>Date Of Delivery:</strong>&nbsp;&nbsp;{{ document.dod }}<br>
+  <strong>Time Of Day:</strong>&nbsp;&nbsp;{{ document.tod }}<br>
+  <strong>Day Of Week:</strong>&nbsp;&nbsp;{{ document.dow }}<br>
+  <strong>Descriptor:</strong>&nbsp;&nbsp;{{ document.descriptor }}<br>
+  <!-- <strong>Title:</strong>&nbsp;&nbsp;<i>{{ document.title }}</i><br> -->
+  <strong>Title:</strong>&nbsp;&nbsp;{{ document.title }}<br>
+  <!-- </center> -->
+  <hr>
+  <a class="btn btn-outline-primary btn-sm" href="">Edit</a> <!--% url 'update-document' document.id %-->
+  <a class="btn btn-outline-danger btn-sm" href="">Delete</a> <!--% url 'delete-document' document.id %-->
+  <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Documents</a>
+  &nbsp;
+  <a class="btn btn-outline-secondary btn-sm" href="">New Document</a> <!--% url 'create-document' %-->
+  <a class="btn btn-outline-secondary btn-sm" href="">New Translation</a><br><br> <!--% url 'create-document-translation' document.id %-->
+  <center><h2>Translations</h2></center>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">lan</th>
+        <th scope="col">tran_title</th>
+        <th scope="col">version</th>
+        <th scope="col">blkc</th>
+        <th scope="col">subc</th>
+        <th scope="col">senc</th>
+        <th scope="col">xcrip</th>
+        <th scope="col">li</th>
+        <th scope="col">actions</th>
+      </tr>
+    </thead>
+    <tbody>
+  {% for translation in document.translations.all %}
+      <tr>
+        <th scope="row"><a href="">{{ translation.id }}</a></th> <!--% url 'show-document-translation' document.id translation.id %-->
+        <!-- <td>{{ translation.id }}</td> -->
+        <td>{{ translation.lan }}</td>
+        <td>{{ translation.tran_title }}</td>
+        <td>{{ translation.version }}</td>
+        <td>{{ translation.blkc }}</td>
+        <td>{{ translation.subc }}</td>
+        <td>{{ translation.senc }}</td>
+        <td>{{ translation.xcrip }}</td>
+        <td>{{ translation.li }}</td>
+        <td><a href="">Edit</a>&nbsp;&nbsp;<a href="">Delete</a></td> <!--% url 'update-document-translation' translation.document.id translation.id %    % url 'delete-document-translation' translation.document.id translation.id %-->
+        <td></td>
+      </tr>
+  {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'tranai/logo.png' %}" width="29.6" height="29.2" class="d-inline-block align-top" alt="">
+      Tran-AI NMT</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            All
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'index-documents' %}">Documents</a></li> <!-- url 'index-documents' -->
+            <li><a class="dropdown-item" href="">Translations</a></li> <!-- url 'index-all-translations' -->
+            <li><a class="dropdown-item" href="">Tasks</a></li> <!-- url 'index-tasks' -->
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Users</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Actions
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="">New Document</a></li> <!-- url 'create-document' -->
+            <li><a class="dropdown-item" href="">New User</a></li> <!-- url 'create-document' -->
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Help</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="">Logout</a> <!--  url 'logout'-->
+        </li>        
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="">Translator Sign Up</a> <!-- url 'register' -->
+        </li>
+        {% endif %}
+      </ul>
+      {% if user.is_authenticated %}
+      <a class="btn btn-outline-success" href="">Logout</a>&nbsp;&nbsp; <!-- url 'logout' -->
+      <a class="btn btn-outline-success" href="{% url 'home' %}">Profile</a>
+{% else %}
+      <a class="btn btn-outline-success" href="">Login</a> <!-- url 'login' -->
+{% endif %}      
+    </div>
+  </div>
+</nav>

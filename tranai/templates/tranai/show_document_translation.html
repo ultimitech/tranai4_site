@@ -1,0 +1,63 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+<!-- <center> -->
+  <!-- <h2>Translation: <i>{{ translation }}</i></h2> -->
+  <h2>Translation</h2>
+  <!-- <br> -->
+  <strong>Id:</strong>&nbsp;&nbsp;{{ translation.id }}<br>
+  <strong>Language:</strong>&nbsp;&nbsp;{{ translation.lan }}<br>
+  <strong>Translated Title:</strong>&nbsp;&nbsp;{{ translation.tran_title }}<br>
+  <strong>English Translation:</strong>&nbsp;&nbsp;{{ translation.eng_tran }}<br>
+  <strong>Description:</strong>&nbsp;&nbsp;{{ translation.description }}<br>
+  <strong>Block Count:</strong>&nbsp;&nbsp;<i>{{ translation.blkc }}</i><br>
+  <strong>Sub-block Count:</strong>&nbsp;&nbsp;{{ translation.subc }}<br>
+  <strong>Sentence Count:</strong>&nbsp;&nbsp;{{ translation.senc }}<br>
+  <strong>Transcription:</strong>&nbsp;&nbsp;{{ translation.xcrip }}<br>
+  <strong>Translate Additions Randomized:</strong>&nbsp;&nbsp;{{ translation.li }}<br>
+  <strong>Randomization:</strong>&nbsp;&nbsp;{{ translation.None }}<br>
+  <strong>Document:</strong>&nbsp;&nbsp;{{ translation.document }}<br>
+  <strong>Publication Date:</strong>&nbsp;&nbsp;{{ translation.pubdate }}<br>
+  <strong>Version:</strong>&nbsp;&nbsp;{{ translation.version }}<br>
+  <!-- </center> -->
+  <hr>
+  <a class="btn btn-outline-primary btn-sm" href="">Edit</a> <!--% url 'update-document-translation' document.id translation.id %-->
+  <a class="btn btn-outline-danger btn-sm" href="">Delete</a> <!--% url 'delete-document-translation' document.id translation.id %-->
+  <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Translations</a>
+  &nbsp;
+  <!-- <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Document</a> -->
+  <a class="btn btn-outline-secondary btn-sm" href="">New Translation</a> <!--% url 'create-document-translation' document.id %-->
+  <a class="btn btn-outline-secondary btn-sm" href="">New Task</a> <!--% url 'create-task' %-->
+  <center><h2>Tasks</h2></center>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Role</th>
+        <th scope="col">Active</th>
+        <th scope="col">Status</th>
+        <th scope="col">CI</th>
+        <th scope="col">Place</th>
+        <th scope="col">TCs</th>
+        <th scope="col">CCs</th>
+        <th scope="col">VCs</th>
+        <th scope="col">ECs</th>
+        <th scope="col">TotCs</th>
+        <th scope="col">#Sens</th>
+        <th scope="col">VT</th>
+        <th scope="col">CT</th>
+        <th scope="col">TotT</th>
+        <th scope="col">M TEs</th>
+        <th scope="col">T TEs</th>
+        <th scope="col">Z TEs</th>
+        <th scope="col">N TEs</th>
+        <th scope="col">TotTEs</th>
+        <th scope="col">User</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+{% endblock %}
