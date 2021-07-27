@@ -98,6 +98,12 @@ def index_all_translations(request):
   translation_list = Translation.objects.all()
   return render(request, 'tranai/index_all_translations.html', {'translation_list': translation_list})
 
+def index_document_translations(request, document_id):
+  document = Document.objects.get(pk=document_id)
+  translations = document.translations.all
+  # return redirect('/')
+  return render(request, 'tranai/show_document.html', {'document': document, 'translations': translations})
+
 def show_document_translation(request, document_id, translation_id):
   # return redirect('/')
   # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")

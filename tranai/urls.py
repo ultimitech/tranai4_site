@@ -13,6 +13,8 @@ urlpatterns = [
 
     # Translation
     path('all_translations', views.index_all_translations, name='index-all-translations'),
+    # path('documents/<document_id>/translations/', views.show_document_translations, name='show-document-translations'),
+    path('documents/<document_id>/translations/', views.index_document_translations, name='index-document-translations'),
 
     path('documents/<document_id>/translations/<translation_id>/', views.show_document_translation, name='show-document-translation'),
 
