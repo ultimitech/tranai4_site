@@ -79,6 +79,17 @@ def update_document(request, document_id):
     form = DocumentForm(initial={'dod': document.dod, 'tod': document.tod, 'dow': document.dow, 'descriptor': document.descriptor, 'title': document.title })
     return render(request, 'tranai/update_document.html', {'document': document, 'form': form})
 
+def delete_document(request, document_id):
+  document = Document.objects.get(pk=document_id)
+  try:
+    document.delete()
+    print('Document delete success')
+  except Exception as e:
+    print('Document delete failure: ' + e)
+    pass
+  return redirect('index-documents')
+  # return redirect(f'/documents/')
+
 ###############################################################################
 # Translation
 ###############################################################################
