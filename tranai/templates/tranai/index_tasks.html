@@ -1,0 +1,48 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+
+<center><h2>All Tasks</h2></center>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Role</th>
+      <th scope="col">Active</th>
+      <th scope="col">Status</th>
+      <th scope="col">CI</th>
+      <th scope="col">Place</th>
+      <th scope="col">CCs</th>
+      <th scope="col">VCs</th>
+      <th scope="col">VT</th>
+      <th scope="col">CT</th>
+      <th scope="col">M TEs</th>
+      <th scope="col">T TEs</th>
+      <th scope="col">Translation</th>
+      <th scope="col">User</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for task in task_list %}
+    <tr>
+      <th scope="row"><a href="">{{ task.id }}</a></th> <!--% url 'show-task' task.id %-->
+      <td>{{ task.role }}</td>
+      <td>{{ task.active }}</td>
+      <td>{{ task.status }}</td>
+      <td>{{ task.ci }}</td>
+      <td>{{ task.place }}</td>
+      <td>{{ task.ccs }}</td>
+      <td>{{ task.vcs }}</td>
+      <td>{{ task.vt }}</td>
+      <td>{{ task.ct }}</td>
+      <td>{{ task.majtes }}</td>
+      <td>{{ task.tietes }}</td>
+      <td>{{ task.translation }}</td>
+      <td>{{ task.user }}</td>
+      <td><a href="">Edit</a></td> <!--% url 'update-task' task.id %-->
+      <td><a href="">Delete</a></td> <!--% url 'delete-task' task.id %-->
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+{% endblock %}

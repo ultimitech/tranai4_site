@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from .models import Document, Translation
+from .models import Document, Translation, Task
 from .forms import DocumentForm, TranslationForm#, TaskForm
 
 # def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
@@ -172,3 +172,10 @@ def delete_document_translation(request, document_id, translation_id):
   # return redirect(f'/documents/{document_id}/translations/')
   return redirect(f'/documents/{document_id}/')
 
+###############################################################################
+# Task
+###############################################################################
+
+def index_tasks(request):
+  task_list = Task.objects.all()
+  return render(request, 'tranai/index_tasks.html', {'task_list': task_list})
