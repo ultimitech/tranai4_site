@@ -6,12 +6,13 @@
   <h2>Task</h2>
   <!-- <br> -->
   <strong>Id:</strong>&nbsp;&nbsp;{{ task.id }}<br>
-  <strong>Translation:</strong>&nbsp;&nbsp;{{ task.translation }}<br>
-  <strong>User:</strong>&nbsp;&nbsp;{{ task.user }}<br>
   <strong>Role:</strong>&nbsp;&nbsp;{{ task.role }}<br>
   <strong>Active:</strong>&nbsp;&nbsp;{{ task.active }}<br>
   <strong>Place:</strong>&nbsp;&nbsp;{{ task.place }}<br>
   <strong>Content imported:</strong>&nbsp;&nbsp;{{ task.ci }}<br>
+  <!--<strong>Translation:</strong>&nbsp;&nbsp;{{ task.translation }}<br>-->
+  <strong>Translation:</strong>&nbsp;&nbsp;<a href="{% url 'show-document-translation' task.translation.document.id task.translation.id %}">{{ task.translation }}</a><br>
+  <strong>User:</strong>&nbsp;&nbsp;{{ task.user }}<br>
   <strong>Status:</strong>&nbsp;&nbsp;{{ task.status }}<br>
   <strong>Final Create additions:</strong>&nbsp;&nbsp;{{ task.ccs }}<br>
   <strong>- by klearing:</strong>&nbsp;&nbsp;{{ task.ccs_k }}<br>

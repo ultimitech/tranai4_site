@@ -26,8 +26,8 @@
   <a class="btn btn-outline-success btn-sm" href="{% url 'index-documents' %}">All Translations</a>
   &nbsp;
   <!-- <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document' %}">New Document</a> -->
-  <a class="btn btn-outline-secondary btn-sm" href="">New Translation</a> <!--% url 'create-document-translation' document.id %-->
-  <a class="btn btn-outline-secondary btn-sm" href="">New Task</a> <!--% url 'create-task' %-->
+  <!--<a class="btn btn-outline-secondary btn-sm" href="{% url 'create-document-translation' document.id %}">New Translation</a> -->
+  <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-task' %}">New Task</a> <!---->
   <center><h2>Tasks</h2></center>
   <table class="table table-hover">
     <thead>
@@ -57,7 +57,32 @@
       </tr>
     </thead>
     <tbody>
-
+{% for task in tasks %}
+      <tr>
+        <td>{{task.id}}</td>
+        <td>{{task.role}}</td>
+        <td>{{task.active}}</td>
+        <td>{{task.status}}</td>
+        <td>{{task.ci}}</td>
+        <td>{{task.place}}</td>
+        <td></td>
+        <td>{{task.ccs}}</td>
+        <td>{{task.vcs}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{task.vt}}</td>
+        <td>{{task.ct}}</td>
+        <td></td>
+        <td>{{task.majtes}}</td>
+        <td>{{task.tietes}}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{task.user}}</td>
+        <td><a href="{% url 'update-task' task.id %}">Edit</a>&nbsp;&nbsp;<a href="{% url 'delete-task' task.id %}">Delete</a></td> <!-- -->
+      </tr>
+{% endfor %}
     </tbody>
   </table>
 {% endblock %}

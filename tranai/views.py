@@ -110,7 +110,8 @@ def show_document_translation(request, document_id, translation_id):
   # return redirect('show')
   document = Document.objects.get(pk=document_id)
   translation = Translation.objects.get(pk=translation_id)
-  return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation})
+  tasks = translation.tasks.all
+  return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation, 'tasks': tasks})
 
 def create_document_translation(request, document_id):
   if request.method == 'POST':
