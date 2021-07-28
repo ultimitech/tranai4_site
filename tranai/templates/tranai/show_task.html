@@ -28,7 +28,7 @@
   <strong>Notes:</strong>&nbsp;&nbsp;{{ task.notes }}<br>
   <!-- </center> -->
   <hr>
-  <a class="btn btn-outline-primary btn-sm" href="">Edit</a> <!--% url 'update-task' task.id %-->
+  <a class="btn btn-outline-primary btn-sm" href="{% url 'update-task' task.id %}">Edit</a> <!---->
   <a class="btn btn-outline-danger btn-sm" href="">Delete</a> <!--% url 'delete-task' task.id %-->
   <a class="btn btn-outline-success btn-sm" href="{% url 'index-tasks' %}">All Tasks</a>
   &nbsp;
