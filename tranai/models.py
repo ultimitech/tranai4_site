@@ -1,8 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
-# from rest_framework import serializers
-# from django.utils.translation import gettext as _
 from django.core.validators import MinLengthValidator, MaxLengthValidator, MinValueValidator, MaxValueValidator
 
 class Document(models.Model):
@@ -71,14 +69,22 @@ class Translation(models.Model):
   def __str__(self):
     return self.tran_title
 
-class User(models.Model):
-  email = models.EmailField('Email')
-  username = models.CharField('Username', max_length=30)
-  admin = models.BooleanField('Admin', default=False)
-  cur_assign_id = models.IntegerField('current Assignment ID', blank=True, null=True)
 
-  def __str__(self):
-    return self.username + ' ' + self.email
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from django.conf import settings
+from django.contrib.auth.models import User # new
 
 class Task(models.Model):
   class Role(models.TextChoices):
@@ -103,6 +109,7 @@ class Task(models.Model):
     pr = 'pr', _('Pruned (pr)')
   translation = models.ForeignKey(Translation, blank=False, null=False, on_delete=models.DO_NOTHING, related_name='tasks')
   user = models.ForeignKey(User, blank=False, null=False, on_delete=models.DO_NOTHING, related_name='tasks')
+  # user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, null=False, on_delete=models.DO_NOTHING, related_name='tasks')
   role = models.CharField('Role', max_length=2, validators=[MinLengthValidator(2), MaxLengthValidator(2)], choices=Role.choices, default=Role.TE, blank=False, null=False,)
   active = models.BooleanField('Active', default=False)
   # place = models.IntegerField('Place', default=1, validators=[MinValueValidator(1), MaxValueValidator(translation.senc)], blank=False, null=False,)
