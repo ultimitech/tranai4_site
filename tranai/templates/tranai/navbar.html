@@ -19,7 +19,7 @@
             <li><a class="dropdown-item" href="{% url 'index-all-translations' %}">Translations</a></li> <!--  -->
             <li><a class="dropdown-item" href="{% url 'index-tasks' %}">Tasks</a></li> <!--  -->
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Users</a></li>
+            <li><a class="dropdown-item" href="{% url 'index-users' %}">Users</a></li>
           </ul>
         </li>
         
@@ -29,7 +29,6 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url 'create-document' %}">New Document</a></li> <!--  -->
-            <li><a class="dropdown-item" href="{% url 'create-document' %}">New User</a></li> <!--  -->
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Help</a></li>
           </ul>
