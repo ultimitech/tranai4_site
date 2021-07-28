@@ -40,7 +40,7 @@
       <td>{{ task.translation }}</td>
       <td>{{ task.user }}</td>
       <td><a href="{% url 'update-task' task.id %}">Edit</a></td> <!---->
-      <td><a href="">Delete</a></td> <!--% url 'delete-task' task.id %-->
+      <td><a href="{% url 'delete-task' task.id %}">Delete</a></td> <!---->
     </tr>
 {% endfor %}
   </tbody>

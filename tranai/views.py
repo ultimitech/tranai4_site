@@ -222,3 +222,13 @@ def update_task(request, task_id):
     form = TaskForm(initial={'role': task.role, 'active': task.active, 'ci': task.ci, 'place': task.place, 'translation': task.translation, 'user': task.user, 'status': task.status, 'ccs': task.ccs, 'ccs_k': task.ccs_k, 'ccs_m': task.ccs_m, 'vcs': task.vcs, 'vcs_a': task.vcs_a, 'vcs_c': task.vcs_c, 'vcs_t': task.vcs_t, 'vcs_p': task.vcs_p, 'ct': task.ct, 'vt': task.vt, 'majtes': task.majtes, 'tietes': task.tietes, 'notes': task.notes})
     return render(request, 'tranai/update_task.html', {'task': task, 'form': form})
 
+def delete_task(request, task_id):
+  task = Task.objects.get(pk=task_id)
+  try:
+    task.delete()
+    print('Task delete success')
+  except Exception as e:
+    print('Task delete failure: ' + e)
+    pass
+  return redirect('index-tasks')
+  # return redirect(f'/tasks/')

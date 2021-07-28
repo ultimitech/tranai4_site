@@ -29,7 +29,7 @@
   <!-- </center> -->
   <hr>
   <a class="btn btn-outline-primary btn-sm" href="{% url 'update-task' task.id %}">Edit</a> <!---->
-  <a class="btn btn-outline-danger btn-sm" href="">Delete</a> <!--% url 'delete-task' task.id %-->
+  <a class="btn btn-outline-danger btn-sm" href="{% url 'delete-task' task.id %}">Delete</a> <!---->
   <a class="btn btn-outline-success btn-sm" href="{% url 'index-tasks' %}">All Tasks</a>
   &nbsp;
   <a class="btn btn-outline-secondary btn-sm" href="{% url 'create-task' %}">New Task</a> <!---->
