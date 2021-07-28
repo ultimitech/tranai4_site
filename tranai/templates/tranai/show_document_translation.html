@@ -59,7 +59,7 @@
     <tbody>
 {% for task in tasks %}
       <tr>
-        <td>{{task.id}}</td>
+        <td><a href="{% url 'show-task' task.id %}">{{task.id}}</a></td>
         <td>{{task.role}}</td>
         <td>{{task.active}}</td>
         <td>{{task.status}}</td>
@@ -80,7 +80,7 @@
         <td></td>
         <td></td>
         <td>{{task.user}}</td>
-        <td><a href="{% url 'update-task' task.id %}">Edit</a>&nbsp;&nbsp;<a href="{% url 'delete-task' task.id %}">Delete</a></td> <!-- -->
+        <td><a href="{% url 'update-task' task.id %}">Edit</a>&nbsp;&nbsp;<a href="{% url 'delete-task' task.id %}">Delete</a></td>
       </tr>
 {% endfor %}
     </tbody>

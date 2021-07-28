@@ -233,3 +233,13 @@ def delete_task(request, task_id):
     pass
   return redirect('index-tasks')
   # return redirect(f'/tasks/')
+
+###############################################################################
+# User
+###############################################################################
+from django.contrib.auth import get_user_model
+
+def index_users(request):
+  User = get_user_model()
+  users = User.objects.all()
+  return render(request, 'tranai/index_users.html', {'users': users})
