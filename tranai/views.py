@@ -3,7 +3,7 @@ import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Document, Translation, Task
-from .forms import DocumentForm, TranslationForm#, TaskForm
+from .forms import DocumentForm, TranslationForm, TaskForm
 
 # def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
 def home(request):
@@ -183,3 +183,21 @@ def index_tasks(request):
 def show_task(request, task_id):
   task = Task.objects.get(pk=task_id)
   return render(request, 'tranai/show_task.html', {'task': task})
+
+def create_task(request):
+  if request.method == 'POST':
+    form = TaskForm(request.POST)
+    if form.is_valid():
+      try:
+        task = form.save()
+        model = form.instance
+        # return redirect('index-documents')
+        return redirect(f'/tasks/{task.id}/')
+      except:
+        pass
+    # print('post')
+    # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
+  elif request.method == 'GET':
+    form = TaskForm()
+    # print('get')
+    return render(request, 'tranai/create_task.html', {'form': form})
