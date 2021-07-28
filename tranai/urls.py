@@ -22,6 +22,7 @@ urlpatterns = [
 
     # Task
     path('tasks/', views.index_tasks, name='index-tasks'),
+    path('tasks/<task_id>/', views.show_task, name='show-task'),
 
 
 ]

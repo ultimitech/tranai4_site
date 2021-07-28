@@ -1,0 +1,36 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+<!-- <center> -->
+  <!-- <h2>Document: <i>{{ task }}</i></h2> -->
+  <h2>Task</h2>
+  <!-- <br> -->
+  <strong>Id:</strong>&nbsp;&nbsp;{{ task.id }}<br>
+  <strong>Translation:</strong>&nbsp;&nbsp;{{ task.translation }}<br>
+  <strong>User:</strong>&nbsp;&nbsp;{{ task.user }}<br>
+  <strong>Role:</strong>&nbsp;&nbsp;{{ task.role }}<br>
+  <strong>Active:</strong>&nbsp;&nbsp;{{ task.active }}<br>
+  <strong>Place:</strong>&nbsp;&nbsp;{{ task.place }}<br>
+  <strong>Content imported:</strong>&nbsp;&nbsp;{{ task.ci }}<br>
+  <strong>Status:</strong>&nbsp;&nbsp;{{ task.status }}<br>
+  <strong>Final Create additions:</strong>&nbsp;&nbsp;{{ task.ccs }}<br>
+  <strong>- by klearing:</strong>&nbsp;&nbsp;{{ task.ccs_k }}<br>
+  <strong>- by modding:</strong>&nbsp;&nbsp;{{ task.ccs_m }}<br>
+  <strong>Final Vote additions:</strong>&nbsp;&nbsp;{{ task.vcs }}<br>
+  <strong>- by accepting:</strong>&nbsp;&nbsp;{{ task.vcs_a }}<br>
+  <strong>- by creating:</strong>&nbsp;&nbsp;{{ task.vcs_c }}<br>
+  <strong>- by topping:</strong>&nbsp;&nbsp;{{ task.vcs_t }}<br>
+  <strong>- by picking:</strong>&nbsp;&nbsp;{{ task.vcs_p }}<br>
+  <strong>Final Create time (s):</strong>&nbsp;&nbsp;{{ task.ct }}<br>
+  <strong>Final Vote time (s):</strong>&nbsp;&nbsp;{{ task.vt }}<br>
+  <strong>Final Majority Top Changes:</strong>&nbsp;&nbsp;{{ task.majtes }}<br>
+  <strong>Final Tie Top Changes:</strong>&nbsp;&nbsp;{{ task.tietes }}<br>
+  <strong>Notes:</strong>&nbsp;&nbsp;{{ task.notes }}<br>
+  <!-- </center> -->
+  <hr>
+  <a class="btn btn-outline-primary btn-sm" href="{}">Edit</a> <!--% url 'update-task' task.id %-->
+  <a class="btn btn-outline-danger btn-sm" href="{}">Delete</a> <!--% url 'delete-task' task.id %-->
+  <a class="btn btn-outline-success btn-sm" href="{% url 'index-tasks' %}">All Tasks</a>
+  &nbsp;
+  <a class="btn btn-outline-secondary btn-sm" href="{}">New Task</a> <!--% url 'create-task' %-->
+{% endblock %}

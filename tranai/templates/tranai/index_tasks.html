@@ -25,7 +25,7 @@
   <tbody>
 {% for task in task_list %}
     <tr>
-      <th scope="row"><a href="">{{ task.id }}</a></th> <!--% url 'show-task' task.id %-->
+      <th scope="row"><a href="{% url 'show-task' task.id %}">{{ task.id }}</a></th> <!---->
       <td>{{ task.role }}</td>
       <td>{{ task.active }}</td>
       <td>{{ task.status }}</td>

@@ -179,3 +179,7 @@ def delete_document_translation(request, document_id, translation_id):
 def index_tasks(request):
   task_list = Task.objects.all()
   return render(request, 'tranai/index_tasks.html', {'task_list': task_list})
+
+def show_task(request, task_id):
+  task = Task.objects.get(pk=task_id)
+  return render(request, 'tranai/show_task.html', {'task': task})
