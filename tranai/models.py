@@ -38,6 +38,7 @@ class Document(models.Model):
     # return f"{self.dod}{self.tod} {self.title}"
     return f"{self.descriptor} {self.title}"
 
+import datetime
 class Translation(models.Model):
   class Transcription(models.TextChoices):
     ANDES = 'A', _('Andes')
@@ -55,7 +56,7 @@ class Translation(models.Model):
   # forms.Select should also be tried///////////////////////////////////////////////////
   xcrip = models.CharField('Transcription', max_length=1, choices=Transcription.choices, default=Transcription.ANDES, blank=False,)
   li = models.BooleanField('Lookup imported (eng) / translate contributions randomized (oth)')
-  pubdate = models.DateField('Publication date')
+  pubdate = models.DateField('Publication date', default=datetime.date.today)
   version = models.CharField('Version', max_length=20)
   document = models.ForeignKey(Document, blank=True, null=True, on_delete=models.CASCADE, related_name='translations')
   eng_tran = models.ForeignKey('self', blank=True, null=True, on_delete=models.CASCADE,)
@@ -68,20 +69,6 @@ class Translation(models.Model):
 
   def __str__(self):
     return self.tran_title
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 from django.conf import settings #for accounts app
 # from django.contrib.auth.models import User #for members app
