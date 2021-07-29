@@ -23,5 +23,6 @@ urlpatterns = [
     path('', include('tranai.urls')),
     
     path('members/', include('django.contrib.auth.urls')),
-    path('members/', include('members.urls')),    
+    # path('members/', include('members.urls')),
+    path('members/', include('accounts.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
