@@ -118,5 +118,5 @@ class Task(models.Model):
   notes = models.CharField('Notes', max_length=200, blank=True, null=True,)
 
   def __str__(self):
-    return self.role
+    return f"[{self.translation.lan} {self.translation.blkc}.{self.translation.subc}.{self.translation.senc}.{self.translation.xcrip}] {self.translation.document.descriptor} {self.translation.document.title} ({self.translation.version}) ({self.role}) {self.user.username} {self.place}"
 

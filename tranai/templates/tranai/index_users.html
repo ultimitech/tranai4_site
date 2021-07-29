@@ -5,7 +5,9 @@
   <thead>
     <tr>
       <th scope="col">Id</th>
+      <th scope="col">Email</th>
       <th scope="col">Username</th>
+      <th scope="col">Current Task</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
@@ -13,7 +15,9 @@
 {% for user in users %}
     <tr>
       <td>{{ user.id }}</td>
+      <td>{{ user.email }}</td>
       <td>{{ user.username }}</td>
+      <td><a href="">{{user.cur_task}}</a></td> <!--% url 'show-task' user.cur_task.id %-->
       <td><a href="">Edit</a>&nbsp;&nbsp;<a href="">Delete</a></td>
     </tr>
 {% endfor %}
