@@ -83,8 +83,8 @@ class Translation(models.Model):
 
 
 
-# from django.conf import settings
-from django.contrib.auth.models import User # new
+from django.conf import settings #for accounts app
+# from django.contrib.auth.models import User #for members app
 
 class Task(models.Model):
   class Role(models.TextChoices):
@@ -108,8 +108,8 @@ class Task(models.Model):
     pd = 'pd', _('Published (pd)')
     pr = 'pr', _('Pruned (pr)')
   translation = models.ForeignKey(Translation, blank=False, null=False, on_delete=models.DO_NOTHING, related_name='tasks')
-  user = models.ForeignKey(User, blank=False, null=False, on_delete=models.DO_NOTHING, related_name='tasks')
-  # user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, null=False, on_delete=models.DO_NOTHING, related_name='tasks')
+  # user = models.ForeignKey(User, blank=False, null=False, on_delete=models.DO_NOTHING, related_name='tasks') #for members app
+  user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=False, null=False, on_delete=models.DO_NOTHING, related_name='tasks') #for accounts app
   role = models.CharField('Role', max_length=2, validators=[MinLengthValidator(2), MaxLengthValidator(2)], choices=Role.choices, default=Role.TE, blank=False, null=False,)
   active = models.BooleanField('Active', default=False)
   # place = models.IntegerField('Place', default=1, validators=[MinValueValidator(1), MaxValueValidator(translation.senc)], blank=False, null=False,)

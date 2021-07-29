@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tranai',
-    'members',
-    # 'accounts',
+    # 'members',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -128,7 +128,8 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-# AUTH_USER_MODEL = 'members.User'
+## AUTH_USER_MODEL = 'members.User'
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
