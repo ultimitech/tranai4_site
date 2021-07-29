@@ -16,7 +16,7 @@
   <strong>Transcription:</strong>&nbsp;&nbsp;{{ translation.xcrip }}<br>
   <strong>Translate Additions Randomized:</strong>&nbsp;&nbsp;{{ translation.li }}<br>
   <strong>Randomization:</strong>&nbsp;&nbsp;{{ translation.None }}<br>
-  <strong>Document:</strong>&nbsp;&nbsp;{{ translation.document }}<br>
+  <strong>Document:</strong>&nbsp;&nbsp;<a href="{% url 'show-document' translation.document.id %}">{{translation.document}}</a><br>
   <strong>Publication Date:</strong>&nbsp;&nbsp;{{ translation.pubdate }}<br>
   <strong>Version:</strong>&nbsp;&nbsp;{{ translation.version }}<br>
   <!-- </center> -->
