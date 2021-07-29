@@ -85,4 +85,38 @@
 {% endfor %}
     </tbody>
   </table>
+
+  <center><h2>Sentences</h2></center>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Blk</th>
+        <th scope="col">Sub</th>
+        <th scope="col">RSub</th>
+        <th scope="col">Sen</th>
+        <th scope="col">RSen</th>
+        <th scope="col">Typ</th>
+        <th scope="col">Tie</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+{% for sentence in sentences %}
+      <tr>
+        <td><a href="{% url 'show-translation-sentence' translation.id sentence.id %}">{{sentence.id}}</a></td> <!---->
+        <td>{{sentence.blk}}</td>
+        <td>{{sentence.sub}}</td>
+        <td>{{sentence.rsub}}</td>
+        <td>{{sentence.sen}}</td>
+        <td>{{sentence.rsen}}</td>
+        <td>{{sentence.typ}}</td>
+        <td>{{sentence.tie}}</td>
+        <td><a href="">Edit</a>&nbsp;&nbsp;<a href="">Delete</a></td>
+        <!--% url 'update-translation-sentence' sentence.id %--> <!--% url 'delete-translation-sentence' sentence.id %-->
+      </tr>
+{% endfor %}
+    </tbody>
+  </table>
+
 {% endblock %}

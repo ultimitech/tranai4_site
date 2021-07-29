@@ -1,0 +1,17 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+<!-- <center> -->
+  <!-- <h2>Sentence: <i>{{ sentence }}</i></h2> -->
+  <h2>Sentence</h2>
+  <!-- <br> -->
+  <strong>Id:</strong>&nbsp;&nbsp;{{ sentence.id }}<br>
+  <strong>Language:</strong>&nbsp;&nbsp;{{ sentence.blk }}<br>
+  <strong>Translated Title:</strong>&nbsp;&nbsp;{{ sentence.sub }}<br>
+  <strong>English Translation:</strong>&nbsp;&nbsp;{{ sentence.rsub }}<br>
+  <strong>Description:</strong>&nbsp;&nbsp;{{ sentence.sen }}<br>
+  <strong>Block Count:</strong>&nbsp;&nbsp;<i>{{ sentence.rsen }}</i><br>
+  <strong>Sub-block Count:</strong>&nbsp;&nbsp;{{ sentence.typ }}<br>
+  <strong>Sentence Count:</strong>&nbsp;&nbsp;{{ sentence.tie }}<br>
+{% endblock %}
+

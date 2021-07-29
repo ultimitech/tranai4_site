@@ -120,3 +120,18 @@ class Task(models.Model):
   def __str__(self):
     return f"[{self.translation.lan} {self.translation.blkc}.{self.translation.subc}.{self.translation.senc}.{self.translation.xcrip}] {self.translation.document.descriptor} {self.translation.document.title} ({self.translation.version}) ({self.role}) {self.user.username} {self.place}"
 
+class Sentence(models.Model):
+  class SentenceType(models.TextChoices):
+    n = 'n', _('Normal')
+    c = 'c', _('Conversation')
+    s = 's', _('Scripture')
+    p = 'p', _('Poetry first line')
+    q = 'q', _('Poetry other lines')
+  blk = models.IntegerField('Block', blank=True, null=True,)
+  sub = models.IntegerField('Sub-block', blank=True, null=True,)
+  rsub = models.IntegerField('Running sub-block', blank=True, null=True,)
+  sen = models.IntegerField('Sentence', blank=True, null=True,)
+  rsen = models.IntegerField('Running sentence', blank=True, null=True,)
+  typ = models.CharField('Sentence type', max_length=1, validators=[MinLengthValidator(1), MaxLengthValidator(1)], choices=SentenceType.choices, default=SentenceType.n, blank=False, null=False,)
+  tie = models.BooleanField('Tie', default=False)
+  translation = models.ForeignKey(Translation, blank=False, null=False, on_delete=models.DO_NOTHING, related_name='sentences')

@@ -92,7 +92,8 @@ def show_document_translation(request, document_id, translation_id):
   document = Document.objects.get(pk=document_id)
   translation = Translation.objects.get(pk=translation_id)
   tasks = translation.tasks.all
-  return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation, 'tasks': tasks})
+  sentences = translation.sentences.all
+  return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation, 'tasks': tasks, 'sentences': sentences})
 
 def create_document_translation(request, document_id):
   if request.method == 'POST':
@@ -153,6 +154,84 @@ def delete_document_translation(request, document_id, translation_id):
     print('Translation delete failure: ' + e)
   # return redirect(f'/documents/{document_id}/translations/')
   return redirect(f'/documents/{document_id}/')
+
+# //////////////////////////////////////
+###############################################################################
+# Sentence
+###############################################################################
+
+# def index_translation_sentences(request, translation_id):
+#   translation = Translation.objects.get(pk=translation_id)
+#   sentences = translation.sentences.all
+#   # return redirect('/')
+#   return render(request, 'tranai/show_document_translation.html', {'translation': translation, 'sentences': sentences})
+
+def show_translation_sentence(request, translation_id, sentence_id):
+  translation = Translation.objects.get(pk=translation_id)
+  sentence = translation.sentences.get(pk=sentence_id)
+  return render(request, 'tranai/show_translation_sentence.html', {'translation': translation, 'sentence': sentence})
+
+# def create_document_translation(request, document_id):
+#   if request.method == 'POST':
+#     form = TranslationForm(request.POST)
+#     if form.is_valid():
+#       try:
+#         # form.save()
+#         translation = form.save()
+#         document = Document.objects.get(pk=document_id)
+#         # translation = Translation.objects.get(pk=translation_id)
+#         translation = Translation.objects.get(pk=translation.id)
+#         translation.document_id = document_id
+#         translation.save()
+#         # model = form.instance
+#         # return redirect('index-translations')
+#         # document
+#         return render(request, 'tranai/show_document.html', {'document': document})
+#       except:
+#         pass
+#     # print('post')
+#     # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
+#   elif request.method == 'GET':
+#     form = TranslationForm()
+#     # print('get')
+#     return render(request, 'tranai/create_document_translation.html', {'form': form})
+
+# def update_document_translation(request, document_id, translation_id):
+#   translation = Translation.objects.get(pk=translation_id)
+#   document = Document.objects.get(pk=document_id)
+#   form = TranslationForm(initial={'lan': translation.lan, 'tran_title': translation.tran_title, 'eng_tran': translation.eng_tran, 'descrip': translation.descrip, 'blkc': translation.blkc, 'subc': translation.subc, 'senc': translation.senc, 'xcrip': translation.xcrip, 'li': translation.li, 'pubdate': translation.pubdate, 'version': translation.version })
+#   if request.method == 'POST':
+#     form = TranslationForm(request.POST, instance=translation)
+#     if form.is_valid():
+#       try:
+#         form.save()
+#         model = form.instance
+#         print('Translation id=' + translation_id + ' updated successfully')
+#         # return redirect(f'/documents/{document_id}/translations/{translation_id}/')
+#         return redirect(f'/documents/{document_id}/')
+#         # return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation})
+#         # return redirect('index-translations')
+#       except Exception as e:
+#         # print('Translation update failure: ' + e)
+#         pass
+#     else:
+#       print('form is not valid')  
+#   elif request.method == 'GET':
+#     form = TranslationForm(initial={'lan': translation.lan, 'tran_title': translation.tran_title, 'eng_tran': translation.eng_tran, 'descrip': translation.descrip, 'blkc': translation.blkc, 'subc': translation.subc, 'senc': translation.senc, 'xcrip': translation.xcrip, 'li': translation.li, 'pubdate': translation.pubdate, 'version': translation.version })
+#     return render(request, 'tranai/update_document_translation.html', {'document': document, 'translation': translation, 'form': form})
+
+# def delete_document_translation(request, document_id, translation_id):
+#   translation = Translation.objects.get(pk=translation_id)
+#   document = Document.objects.get(pk=document_id)
+#   try:
+#     translation.delete()
+#     print('Translation delete success')
+#   except Exception as e:
+#     print('Translation delete failure: ' + e)
+#   # return redirect(f'/documents/{document_id}/translations/')
+#   return redirect(f'/documents/{document_id}/')
+
+# \\\\\\\\\\\\\\\\\\\\\
 
 ###############################################################################
 # Task
