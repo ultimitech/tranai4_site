@@ -155,6 +155,10 @@ def delete_document_translation(request, document_id, translation_id):
   # return redirect(f'/documents/{document_id}/translations/')
   return redirect(f'/documents/{document_id}/')
 
+def lookup(request, document_id):
+  print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+  return redirect(f'/documents/{translation.document.id}/translations/{translation_id}')
+  
 ###############################################################################
 # Sentence
 ###############################################################################

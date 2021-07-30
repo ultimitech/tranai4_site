@@ -14,11 +14,18 @@
   <strong>Sub-block Count:</strong>&nbsp;&nbsp;{{ translation.subc }}<br>
   <strong>Sentence Count:</strong>&nbsp;&nbsp;{{ translation.senc }}<br>
   <strong>Transcription:</strong>&nbsp;&nbsp;{{ translation.xcrip }}<br>
-  <strong>Translate Additions Randomized:</strong>&nbsp;&nbsp;{{ translation.li }}<br>
-  <strong>Randomization:</strong>&nbsp;&nbsp;{{ translation.None }}<br>
-  <strong>Document:</strong>&nbsp;&nbsp;<a href="{% url 'show-document' translation.document.id %}">{{translation.document}}</a><br>
+{% if translation.lan == 'ENG' %}
+  <strong>Lookup Imported:</strong>&nbsp;&nbsp;{{ translation.li }}<br>
+  <strong>Lookup:</strong>&nbsp;&nbsp;<a class="btn btn-outline-primary btn-sm" href="">Import Lookup</a> <!--% url 'lookup-link' document.id %--><br>
+{% else %}
+<strong>Translate Additions Randomized:</strong>&nbsp;&nbsp;{{ translation.li }}<br>
+  {% if not translation.li %}
+<strong>Randomization:</strong>&nbsp;&nbsp;{{ translation.None }}<br>
+  {% endif %}
+{% endif %}
+  <strong>Document:</strong>&nbsp;&nbsp;<a href="{% url 'show-document' translation.document.id %}">{{translation.document}}</a><br>  
   <strong>Publication Date:</strong>&nbsp;&nbsp;{{ translation.pubdate }}<br>
-  <strong>Version:</strong>&nbsp;&nbsp;{{ translation.version }}<br>
+  <strong>Version:</strong>&nbsp;&nbsp;{{ translation.version }}<br>  
   <!-- </center> -->
   <hr>
   <a class="btn btn-outline-primary btn-sm" href="">Edit</a> <!--% url 'update-document-translation' document.id translation.id %-->
