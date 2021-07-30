@@ -28,7 +28,8 @@ SECRET_KEY = 'django-insecure-z(h5s2gkemq9%4nx6lu=n@z$w7w3gea$k8qb57@xs34t131m9&
 DEBUG = getenv("IS_DEVELOPMENT", True)
 
 # ALLOWED_HOSTS = ['192.168.1.9']
-APP_HOST = getenv('APP_HOST', '192.168.1.9')
+# APP_HOST = getenv('APP_HOST', '192.168.1.9')
+APP_HOST = getenv('APP_HOST', 'localhost')
 ALLOWED_HOSTS = [APP_HOST]
 
 # Application definition
