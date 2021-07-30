@@ -114,8 +114,8 @@
         <td>{{sentence.rsen}}</td>
         <td>{{sentence.typ}}</td>
         <td>{{sentence.tie}}</td>
-        <td><a href="{% url 'update-translation-sentence' translation.id sentence.id %}">Edit</a>&nbsp;&nbsp;<a href="">Delete</a></td>
-        <!----> <!--% url 'delete-translation-sentence' sentence.id %-->
+        <td><a href="{% url 'update-translation-sentence' translation.id sentence.id %}">Edit</a>&nbsp;&nbsp;<a href="{% url 'delete-translation-sentence' translation.id sentence.id %}">Delete</a></td>
+        <!----> <!---->
       </tr>
 {% endfor %}
     </tbody>

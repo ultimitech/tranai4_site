@@ -155,7 +155,6 @@ def delete_document_translation(request, document_id, translation_id):
   # return redirect(f'/documents/{document_id}/translations/')
   return redirect(f'/documents/{document_id}/')
 
-# //////////////////////////////////////
 ###############################################################################
 # Sentence
 ###############################################################################
@@ -211,18 +210,15 @@ def update_translation_sentence(request, translation_id, sentence_id):
     form = SentenceForm(initial={'blk': sentence.blk, 'sub': sentence.sub, 'rsub': sentence.rsub, 'sen': sentence.sen, 'rsen': sentence.rsen, 'typ': sentence.typ, 'tie': sentence.tie })
     return render(request, 'tranai/update_translation_sentence.html', {'translation': translation, 'sentence': sentence, 'form': form})
 
-# def delete_document_translation(request, document_id, translation_id):
-#   translation = Translation.objects.get(pk=translation_id)
-#   document = Document.objects.get(pk=document_id)
-#   try:
-#     translation.delete()
-#     print('Translation delete success')
-#   except Exception as e:
-#     print('Translation delete failure: ' + e)
-#   # return redirect(f'/documents/{document_id}/translations/')
-#   return redirect(f'/documents/{document_id}/')
-
-# \\\\\\\\\\\\\\\\\\\\\
+def delete_translation_sentence(request, translation_id, sentence_id):
+  sentence = Sentence.objects.get(pk=sentence_id)
+  translation = Translation.objects.get(pk=translation_id)
+  try:
+    sentence.delete()
+    print('Sentence delete success')
+  except Exception as e:
+    print('Sentence delete failure: ' + e)
+  return redirect(f'/documents/{translation.document.id}/translations/{translation_id}')
 
 ###############################################################################
 # Task
