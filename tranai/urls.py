@@ -26,6 +26,8 @@ urlpatterns = [
     # path('translations/<translation_id>/sentences/', views.index_translation_sentences, name='index-translation-sentences'),
     path('translations/<translation_id>/sentences/<sentence_id>/', views.show_translation_sentence, name='show-translation-sentence'),
 
+    path('translations/<translation_id>/sentences/<sentence_id>/edit', views.update_translation_sentence, name='update-translation-sentence'),
+
     # Task
     path('tasks/', views.index_tasks, name='index-tasks'),
     path('tasks/<task_id>/', views.show_task, name='show-task'),

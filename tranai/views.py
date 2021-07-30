@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from .models import Document, Translation, Task
-from .forms import DocumentForm, TranslationForm, TaskForm
+from .models import Document, Translation, Task, Sentence
+from .forms import DocumentForm, TranslationForm, TaskForm, SentenceForm
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
   return render(request, 'tranai/home.html', {})
@@ -196,29 +196,26 @@ def show_translation_sentence(request, translation_id, sentence_id):
 #     # print('get')
 #     return render(request, 'tranai/create_document_translation.html', {'form': form})
 
-# def update_document_translation(request, document_id, translation_id):
-#   translation = Translation.objects.get(pk=translation_id)
-#   document = Document.objects.get(pk=document_id)
-#   form = TranslationForm(initial={'lan': translation.lan, 'tran_title': translation.tran_title, 'eng_tran': translation.eng_tran, 'descrip': translation.descrip, 'blkc': translation.blkc, 'subc': translation.subc, 'senc': translation.senc, 'xcrip': translation.xcrip, 'li': translation.li, 'pubdate': translation.pubdate, 'version': translation.version })
-#   if request.method == 'POST':
-#     form = TranslationForm(request.POST, instance=translation)
-#     if form.is_valid():
-#       try:
-#         form.save()
-#         model = form.instance
-#         print('Translation id=' + translation_id + ' updated successfully')
-#         # return redirect(f'/documents/{document_id}/translations/{translation_id}/')
-#         return redirect(f'/documents/{document_id}/')
-#         # return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation})
-#         # return redirect('index-translations')
-#       except Exception as e:
-#         # print('Translation update failure: ' + e)
-#         pass
-#     else:
-#       print('form is not valid')  
-#   elif request.method == 'GET':
-#     form = TranslationForm(initial={'lan': translation.lan, 'tran_title': translation.tran_title, 'eng_tran': translation.eng_tran, 'descrip': translation.descrip, 'blkc': translation.blkc, 'subc': translation.subc, 'senc': translation.senc, 'xcrip': translation.xcrip, 'li': translation.li, 'pubdate': translation.pubdate, 'version': translation.version })
-#     return render(request, 'tranai/update_document_translation.html', {'document': document, 'translation': translation, 'form': form})
+def update_translation_sentence(request, translation_id, sentence_id):
+  sentence = Sentence.objects.get(pk=sentence_id)
+  translation = Sentence.objects.get(pk=sentence_id)
+  form = SentenceForm(initial={'blk': sentence.blk, 'sub': sentence.sub, 'rsub': sentence.rsub, 'sen': sentence.sen, 'rsen': sentence.rsen, 'typ': sentence.typ, 'tie': sentence.tie })
+  if request.method == 'POST':
+    form = SentenceForm(request.POST, instance=sentence)
+    if form.is_valid():
+      try:
+        form.save()
+        model = form.instance
+        print('Sentence id=' + sentence_id + ' updated successfully')
+        return redirect(f'/translations/{translation_id}/sentences/{sentence_id}')
+      except Exception as e:
+        # print('Sentence update failure: ' + e)
+        pass
+    else:
+      print('form is not valid')  
+  elif request.method == 'GET':
+    form = SentenceForm(initial={'blk': sentence.blk, 'sub': sentence.sub, 'rsub': sentence.rsub, 'sen': sentence.sen, 'rsen': sentence.rsen, 'typ': sentence.typ, 'tie': sentence.tie })
+    return render(request, 'tranai/update_translation_sentence.html', {'translation': translation, 'sentence': sentence, 'form': form})
 
 # def delete_document_translation(request, document_id, translation_id):
 #   translation = Translation.objects.get(pk=translation_id)

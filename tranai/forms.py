@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Document, Translation, Task
+from .models import Document, Translation, Task, Sentence
 
 class DocumentForm(ModelForm):
   class Meta:
@@ -107,3 +107,28 @@ class TaskForm(ModelForm):
       'tietes': forms.NumberInput(attrs={'class':'form-control', 'placeholder': 'Final Tie Top Changes'}),
       'notes': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Notes'}),
     }
+
+class SentenceForm(ModelForm):
+  class Meta:
+    model = Sentence
+    fields = ('blk', 'sub', 'rsub', 'sen', 'rsen', 'typ', 'tie', 'translation')
+    labels = {
+      'blk': 'Block',
+      'sub': 'Sub-block',
+      'rsub': 'Running sub-block',
+      'sen': 'Sentence',
+      'rsen': 'Running sentence',
+      'typ': 'Sentence type',
+      'tie': 'Tie',
+      'translation': 'Translation',
+    }
+    # widgets = {
+    #   'blk': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Block'}),
+    #   'sub': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Sub-block'}),
+    #   'rsub': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Running sub-block'}),
+    #   'sen': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Sentence'}),
+    #   'rsen': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Running sentence'}),
+    #   # 'typ': forms.NumberInput(attrs={'class':'form-control', 'placeholder':'Sentence Count'}),
+    #   # 'tie': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Transcription'}),
+    #   'translation': forms.ChoiceField(attrs={'class':'form-control', 'placeholder':'Translation'}),
+    # }
