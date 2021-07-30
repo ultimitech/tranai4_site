@@ -1,0 +1,17 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+<div class="card-body">
+<!-- <center> -->
+  <h5>New Sentence</h5>
+  <!-- <br/><br/> -->
+  <form action="" method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+    <input type="submit" value="Create Sentence" class="btn btn-secondary">
+    <a class="btn btn-warning" href="#" role="button">Cancel Sentence</a>
+  </form>
+  <!-- </center> -->
+</div>
+{% endblock %}

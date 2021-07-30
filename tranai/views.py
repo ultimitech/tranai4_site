@@ -171,30 +171,24 @@ def show_translation_sentence(request, translation_id, sentence_id):
   sentence = translation.sentences.get(pk=sentence_id)
   return render(request, 'tranai/show_translation_sentence.html', {'translation': translation, 'sentence': sentence})
 
-# def create_document_translation(request, document_id):
-#   if request.method == 'POST':
-#     form = TranslationForm(request.POST)
-#     if form.is_valid():
-#       try:
-#         # form.save()
-#         translation = form.save()
-#         document = Document.objects.get(pk=document_id)
-#         # translation = Translation.objects.get(pk=translation_id)
-#         translation = Translation.objects.get(pk=translation.id)
-#         translation.document_id = document_id
-#         translation.save()
-#         # model = form.instance
-#         # return redirect('index-translations')
-#         # document
-#         return render(request, 'tranai/show_document.html', {'document': document})
-#       except:
-#         pass
-#     # print('post')
-#     # return HttpResponse("<a class='dropdown-item' href='#'>Translations</a>")
-#   elif request.method == 'GET':
-#     form = TranslationForm()
-#     # print('get')
-#     return render(request, 'tranai/create_document_translation.html', {'form': form})
+def create_translation_sentence(request, translation_id):
+  translation = Translation.objects.get(pk=translation_id)
+  if request.method == 'POST':
+    form = SentenceForm(request.POST)
+    if form.is_valid():
+      try:
+        # form.save()
+        sentence = form.save()
+        # translation = Translation.objects.get(pk=translation_id)
+        sentence = Sentence.objects.get(pk=sentence.id)
+        sentence.translation_id = translation_id
+        sentence.save()
+        return render(request, 'tranai/show_document_translation.html', {'translation': translation})
+      except:
+        pass
+  elif request.method == 'GET':
+    form = SentenceForm()
+    return render(request, 'tranai/create_translation_sentence.html', {'translation': translation, 'form': form})
 
 def update_translation_sentence(request, translation_id, sentence_id):
   sentence = Sentence.objects.get(pk=sentence_id)
