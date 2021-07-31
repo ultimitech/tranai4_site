@@ -72,6 +72,10 @@ def delete_document(request, document_id):
   return redirect('index-documents')
   # return redirect(f'/documents/')
 
+def search_documents(request):
+  
+  return render(request, 'tranai/search_documents.html', {})
+
 ###############################################################################
 # Translation
 ###############################################################################
