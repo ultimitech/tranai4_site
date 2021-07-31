@@ -16,7 +16,11 @@
   <strong>Transcription:</strong>&nbsp;&nbsp;{{ translation.xcrip }}<br>
 {% if translation.lan == 'ENG' %}
   <strong>Lookup Imported:</strong>&nbsp;&nbsp;{{ translation.li }}<br>
-  <strong>Lookup:</strong>&nbsp;&nbsp;<a class="btn btn-outline-primary btn-sm" href="">Import Lookup</a> <!--% url 'lookup-link' document.id %--><br>
+  {% if translation.li %}
+  <strong>Lookup:</strong>&nbsp;&nbsp;<a class="btn btn-outline-primary btn-sm" href="{}">Delete Lookup</a> <!--% url 'delete-lookup' translation.document.id translation.id %--><br>
+  {% else %}
+  <strong>Lookup:</strong>&nbsp;&nbsp;<a class="btn btn-outline-primary btn-sm" href="{% url 'import-lookup' translation.document.id translation.id %}">Import Lookup</a> <!----><br>
+  {% endif %}
 {% else %}
 <strong>Translate Additions Randomized:</strong>&nbsp;&nbsp;{{ translation.li }}<br>
   {% if not translation.li %}

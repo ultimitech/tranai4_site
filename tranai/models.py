@@ -134,4 +134,12 @@ class Sentence(models.Model):
   rsen = models.IntegerField('Running sentence', blank=True, null=True,)
   typ = models.CharField('Sentence type', max_length=1, validators=[MinLengthValidator(1), MaxLengthValidator(1)], choices=SentenceType.choices, default=SentenceType.n, blank=False, null=False,)
   tie = models.BooleanField('Tie', default=False)
-  translation = models.ForeignKey(Translation, blank=False, null=False, on_delete=models.DO_NOTHING, related_name='sentences')
+  translation = models.ForeignKey(Translation, blank=False, null=False, on_delete=models.CASCADE, related_name='sentences')
+
+class Lookup(models.Model):
+  blk = models.IntegerField('Block', blank=True, null=True,)
+  rsub = models.IntegerField('Running sub-block', blank=True, null=True,)
+  sub = models.IntegerField('Sub-block', blank=True, null=True,)
+  translation = models.ForeignKey(Translation, blank=False, null=False, on_delete=models.CASCADE, related_name='lookups')
+
+  

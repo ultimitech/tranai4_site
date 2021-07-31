@@ -22,7 +22,7 @@ urlpatterns = [
     path('documents/<document_id>/translations/<translation_id>/edit', views.update_document_translation, name='update-document-translation'),
     path('documents/<document_id>/translations/<translation_id>/delete', views.delete_document_translation, name='delete-document-translation'),
 
-    path('lookup_link/<document_id>', views.lookup, name='lookup-link'),
+    path('lookup_link/documents/<document_id>/translations/<translation_id>', views.import_lookup, name='import-lookup'),
 
     # Sentence
     # path('translations/<translation_id>/sentences/', views.index_translation_sentences, name='index-translation-sentences'),

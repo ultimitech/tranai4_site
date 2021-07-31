@@ -132,3 +132,7 @@ class SentenceForm(ModelForm):
     #   # 'tie': forms.TextInput(attrs={'class':'form-control', 'placeholder':'Transcription'}),
     #   'translation': forms.ChoiceField(attrs={'class':'form-control', 'placeholder':'Translation'}),
     # }
+
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()

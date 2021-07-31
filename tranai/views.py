@@ -1,3 +1,4 @@
+# from django.http import request
 from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
@@ -155,10 +156,32 @@ def delete_document_translation(request, document_id, translation_id):
   # return redirect(f'/documents/{document_id}/translations/')
   return redirect(f'/documents/{document_id}/')
 
-def lookup(request, document_id):
+# from .forms import UploadFileForm
+# def lookup_link(request, document_id, translation_id):
+#   if request.method == 'POST':
+#     form = UploadFileForm(request.POST, request.FILES)
+#     if form.is_valid():
+#       handle_uploaded_file(request.FILES['myfile'])
+#       # return HttpResponseRedirect('/success/url/')
+#       return redirect(f'/documents/{document_id}/translations/{translation_id}')
+#   else:
+#     form = UploadFileForm()
+#   return render(request, 'tranai/upload.html', {'form': form})
+
+# see translations_controller !!!!!!!!!!!!
+def handle_lookup_file(f):
   print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-  return redirect(f'/documents/{translation.document.id}/translations/{translation_id}')
-  
+  print(f.name); print(f.size); print(f)
+  str_text = ''
+  for line in f:
+    str_text = str_text + line.decode()  # "str_text" will be of `str` type
+  print(str_text)
+
+def import_lookup(request, document_id, translation_id):
+  if request.method == 'POST':
+    handle_lookup_file(request.FILES['document'])
+  return render(request, 'tranai/upload.html')
+
 ###############################################################################
 # Sentence
 ###############################################################################
