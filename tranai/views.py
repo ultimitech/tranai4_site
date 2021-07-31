@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from .models import Document, Translation, Task, Sentence
+from .models import Document, Lookup, Translation, Task, Sentence
 from .forms import DocumentForm, TranslationForm, TaskForm, SentenceForm
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
@@ -98,7 +98,8 @@ def show_document_translation(request, document_id, translation_id):
   translation = Translation.objects.get(pk=translation_id)
   tasks = translation.tasks.all
   sentences = translation.sentences.all
-  return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation, 'tasks': tasks, 'sentences': sentences})
+  lookups = translation.lookups.all
+  return render(request, 'tranai/show_document_translation.html', {'document': document, 'translation': translation, 'tasks': tasks, 'sentences': sentences, 'lookups': lookups})
 
 def create_document_translation(request, document_id):
   if request.method == 'POST':
@@ -172,19 +173,59 @@ def delete_document_translation(request, document_id, translation_id):
 #     form = UploadFileForm()
 #   return render(request, 'tranai/upload.html', {'form': form})
 
-# see translations_controller !!!!!!!!!!!!
-def handle_lookup_file(f):
-  print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-  print(f.name); print(f.size); print(f)
+# https://stackoverflow.com/questions/50521674/how-to-convert-content-of-inmemoryuploadedfile-to-string
+def handle_lookup_file(f, translation_id):
+  # print(f.name); print(f.size); print(f)
+  translation = Translation.objects.get(pk=translation_id)
   str_text = ''
-  for line in f:
-    str_text = str_text + line.decode()  # "str_text" will be of `str` type
-  print(str_text)
+  for line in f: str_text = str_text + line.decode(); # "str_text" will be of `str` type
+  str_split = str_text.split('\n')#; print(str_split)
+  num_of_lookups = 0
+  for line in str_split:
+    if line.strip(): #non-empty after strip
+      print(line)
+      # get line parts
+      line_parts = line.split(' ')
+      blk = line_parts[0]
+      sub = line_parts[1]
+      rsub = line_parts[2]
+      # create lookup
+      new_lookup = Lookup(blk=blk, sub=sub, rsub=rsub, translation=translation)
+      new_lookup.save()
+      if new_lookup:
+        print(f"new_lookup: {new_lookup.blk} {new_lookup.sub} {new_lookup.rsub}")
+      else:
+        print(f"ERROR: Could not create lookup {new_lookup.blk} {new_lookup.sub} {new_lookup.rsub}")
+        # flash[:danger] = "ERROR: Could not create lookup #{new_lookup.blk} #{new_lookup.sub} #{new_lookup.rsub}"
+      new_lookup = None
+      num_of_lookups += 1
+  # mark as imported
+  Translation.objects.filter(id=translation_id).update(li=True)
 
 def import_lookup(request, document_id, translation_id):
   if request.method == 'POST':
-    handle_lookup_file(request.FILES['document'])
-  return render(request, 'tranai/upload.html')
+    handle_lookup_file(request.FILES['document'], translation_id)
+    return redirect(f'/documents/{document_id}/translations/{translation_id}')
+  else:
+    return render(request, 'tranai/upload.html')
+
+def delete_lookup(request, document_id, translation_id):
+  translation = Translation.objects.get(pk=translation_id)
+  # determine the lookups to be deleted
+  # lookups = translation.lookups
+  lookups = Lookup.objects.filter(translation_id=translation_id)
+  num_of_lookups = len(lookups)
+  print(f"num_of_lookups: {num_of_lookups}")
+  if num_of_lookups > 0:
+    for lookup in lookups:
+      lookup.delete()
+    #mark as not imported 
+    Translation.objects.filter(id=translation_id).update(li=False)
+    # flash[:danger] = "#{num_of_lookups} lookups for this translation deleted"
+  else:
+    pass
+    # flash[:danger] = 'No lookups for this translation deleted'
+  return redirect(f'/documents/{document_id}/translations/{translation_id}')
 
 ###############################################################################
 # Sentence

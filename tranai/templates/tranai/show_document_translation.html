@@ -17,7 +17,7 @@
 {% if translation.lan == 'ENG' %}
   <strong>Lookup Imported:</strong>&nbsp;&nbsp;{{ translation.li }}<br>
   {% if translation.li %}
-  <strong>Lookup:</strong>&nbsp;&nbsp;<a class="btn btn-outline-primary btn-sm" href="{}">Delete Lookup</a> <!--% url 'delete-lookup' translation.document.id translation.id %--><br>
+  <strong>Lookup:</strong>&nbsp;&nbsp;<a class="btn btn-outline-primary btn-sm" href="{% url 'delete-lookup' translation.document.id translation.id %}">Delete Lookup</a> <!----><br>
   {% else %}
   <strong>Lookup:</strong>&nbsp;&nbsp;<a class="btn btn-outline-primary btn-sm" href="{% url 'import-lookup' translation.document.id translation.id %}">Import Lookup</a> <!----><br>
   {% endif %}
@@ -127,6 +127,28 @@
         <td>{{sentence.tie}}</td>
         <td><a href="{% url 'update-translation-sentence' translation.id sentence.id %}">Edit</a>&nbsp;&nbsp;<a href="{% url 'delete-translation-sentence' translation.id sentence.id %}">Delete</a></td>
         <!----> <!---->
+      </tr>
+{% endfor %}
+    </tbody>
+  </table>
+
+  <center><h2>Lookups</h2></center>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Blk</th>
+        <th scope="col">Sub</th>
+        <th scope="col">RSub</th>
+      </tr>
+    </thead>
+    <tbody>
+{% for lookup in lookups %}
+      <tr>
+        <td>{{lookup.id}}</td>
+        <td>{{lookup.blk}}</td>
+        <td>{{lookup.sub}}</td>
+        <td>{{lookup.rsub}}</td>
       </tr>
 {% endfor %}
     </tbody>

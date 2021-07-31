@@ -24,6 +24,7 @@ urlpatterns = [
     path('documents/<document_id>/translations/<translation_id>/delete', views.delete_document_translation, name='delete-document-translation'),
 
     path('lookup_link/documents/<document_id>/translations/<translation_id>', views.import_lookup, name='import-lookup'),
+    path('lookup_delete_link/documents/<document_id>/translations/<translation_id>', views.delete_lookup, name='delete-lookup'),
 
     # Sentence
     # path('translations/<translation_id>/sentences/', views.index_translation_sentences, name='index-translation-sentences'),
