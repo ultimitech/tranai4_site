@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-        {% if user.is_authenticated %}
+{% if user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             All
@@ -46,17 +46,16 @@
             <li><a class="dropdown-item" href="#">Help</a></li>
           </ul>
         </li>
-<!-- 
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'logout' %}">Logout</a> <!--  -->
-        </li> -->
-        {% else %}
+
+        <li class="nav-item"><a class="nav-link" href="#" role="button" aria-expanded="false">[{{user.cur_task.translation.lan}}] {{user.cur_task.translation.document.descriptor}} {{user.cur_task.translation.document.title}} ({{user.cur_task.role}})</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" role="button" aria-expanded="false">{{user.username}}</a></li>
+{% else %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'signup' %}">Translator Sign Up</a> <!---->
         </li>
-        {% endif %}
+{% endif %}
       </ul>
-      {% if user.is_authenticated %}
+{% if user.is_authenticated %}
       <!-- <form class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -65,7 +64,7 @@
       <a class="btn btn-outline-success" href="{% url 'home' %}">Profile</a>
 {% else %}
       <a class="btn btn-outline-success" href="{% url 'login' %}">Login</a> <!---->
-{% endif %}      
+{% endif %}
     </div>
   </div>
 </nav>
