@@ -73,8 +73,12 @@ def delete_document(request, document_id):
   # return redirect(f'/documents/')
 
 def search_documents(request):
-  
-  return render(request, 'tranai/search_documents.html', {})
+  if request.method == 'POST':
+    searched = request.POST['searched']
+    
+    return render(request, 'tranai/search_documents.html', {'searched':searched})
+  else:
+    return render(request, 'tranai/search_documents.html', {})    
 
 ###############################################################################
 # Translation
