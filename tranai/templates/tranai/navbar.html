@@ -1,3 +1,4 @@
+{% load tranai_tags %}
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
@@ -38,11 +39,11 @@
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Tasks
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">  
-  <!--% tasks = Task.objects.filter(user=request.user) %-->
-            <li>Task 1</li>
-            <li>Task 2</li>
-            <li>Task 3</li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+  {%  get_current_user_active_tasks as active_tasks %}
+  {%  for at in active_tasks %}
+            <li><a class="dropdown-item" href="">[{{at.translation.lan}}] {{at.translation.document.descriptor}} {{at.translation.document.title}} ({{at.role}})</a></li>
+  {%  endfor %}
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Help</a></li>
           </ul>
