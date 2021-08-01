@@ -75,8 +75,11 @@ def delete_document(request, document_id):
 def search_documents(request):
   if request.method == 'POST':
     searched = request.POST['searched']
-    
-    return render(request, 'tranai/search_documents.html', {'searched':searched})
+    # documents = Document.objects.filter(title__contains=searched).filter(descriptor__contains=searched)
+    documents = Document.objects.filter(title__contains=searched)
+    # documents = Document.objects.filter(descriptor__contains=searched)
+
+    return render(request, 'tranai/search_documents.html', {'searched':searched,'documents':documents})
   else:
     return render(request, 'tranai/search_documents.html', {})    
 
