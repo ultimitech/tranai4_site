@@ -142,4 +142,14 @@ class Lookup(models.Model):
   sub = models.IntegerField('Sub-block', blank=True, null=True,)
   translation = models.ForeignKey(Translation, blank=False, null=False, on_delete=models.CASCADE, related_name='lookups')
 
-  
+class Change(models.Model):
+  class TopChangeType(models.TextChoices):
+    N = 'N', _('No?')
+    Z = 'Z', _('Zero-vote?')
+    T = 'T', _('Tie')
+    M = 'M', _('Majority')
+  content = models.CharField('Content', max_length=1024, validators=[MinLengthValidator(0), MaxLengthValidator(1024)], blank=True, null=True,)
+  hid = models.BooleanField('Hidden', default=False)
+  top = models.CharField('Top Change', max_length=1, validators=[MinLengthValidator(1), MaxLengthValidator(1)], choices=TopChangeType.choices, default=TopChangeType.Z, blank=False, null=False,)
+  mods = models.IntegerField('Mods', blank=True, null=True,) #to be removed, not used
+  sentence = models.ForeignKey(Sentence, blank=False, null=False, on_delete=models.CASCADE, related_name='changes')
