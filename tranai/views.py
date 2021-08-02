@@ -368,7 +368,7 @@ def import_content_for_validation(request, task_id):
     # prepare file as list of strings
     str_text = ''
     for line in request.FILES['document']: str_text = str_text + line.decode()
-    str_split = str_text.split('\n'); print(str_split[:10])
+    str_split = str_text.split('\n'); #print(str_split[:10])
 
     # remove title line
     str_split.pop(0)

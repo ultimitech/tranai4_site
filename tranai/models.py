@@ -144,14 +144,38 @@ class Lookup(models.Model):
 
 class Change(models.Model):
   class TopChangeType(models.TextChoices):
-    N = 'N', _('No?')
-    Z = 'Z', _('Zero-vote?')
-    T = 'T', _('Tie')
-    M = 'M', _('Majority')
+    N = 'N', _('Not top change')
+    Z = 'Z', _('Zero vote top change')
+    T = 'T', _('Tie top change')
+    M = 'M', _('Majority top change')
   content = models.CharField('Content', max_length=1024, validators=[MinLengthValidator(0), MaxLengthValidator(1024)], blank=True, null=True,)
   hid = models.BooleanField('Hidden', default=False)
   top = models.CharField('Top Change', max_length=1, validators=[MinLengthValidator(1), MaxLengthValidator(1)], choices=TopChangeType.choices, default=TopChangeType.Z, blank=False, null=False,)
   mods = models.IntegerField('Mods', blank=True, null=True,) #to be removed, not used
   sentence = models.ForeignKey(Sentence, blank=False, null=False, on_delete=models.CASCADE, related_name='changes')
+  created_at = models.DateTimeField(auto_now_add=True)
+  updated_at = models.DateTimeField(auto_now=True)
+
+class Addition(models.Model):
+  class Kind(models.TextChoices):
+    E = 'E', _('English')
+    T = 'T', _('Translate')
+    C = 'C', _('Create')
+    V = 'V', _('Vote')
+  class Base(models.TextChoices):
+    # kind C
+    k = 'k', _('clearing')
+    m = 'm', _('modding')
+    # kind V
+    a = 'a', _('accepting')
+    c = 'c', _('creating')
+    t = 't', _('topping')
+    p = 'p', _('picking another')
+  kind = models.CharField('Kind', max_length=1, validators=[MinLengthValidator(1), MaxLengthValidator(1)], choices=Kind.choices, blank=False, null=False,)
+  effort_in_seconds = models.IntegerField('Effort in seconds', blank=True, null=True,)
+  base_change = models.ForeignKey(Change, blank=True, null=True, on_delete=models.CASCADE)
+  base = models.CharField('Base', max_length=1, validators=[MinLengthValidator(1), MaxLengthValidator(1)], choices=Base.choices, blank=False, null=False,)
+  task = models.ForeignKey(Task, blank=False, null=False, on_delete=models.CASCADE, related_name='additions')
+  change = models.ForeignKey(Change, blank=False, null=False, on_delete=models.CASCADE, related_name='additions')
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)

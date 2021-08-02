@@ -6,6 +6,7 @@ from .models import Task
 from .models import Sentence
 from .models import Lookup
 from .models import Change
+from .models import Addition
 
 admin.site.register(Document)
 admin.site.register(Translation)
@@ -14,3 +15,4 @@ admin.site.register(Task)
 admin.site.register(Sentence)
 admin.site.register(Lookup)
 admin.site.register(Change)
+admin.site.register(Addition)
