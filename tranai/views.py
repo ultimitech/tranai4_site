@@ -1,4 +1,5 @@
 # from django.http import request
+from tranai4_site.settings import AUTH_USER_MODEL
 from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
@@ -361,8 +362,39 @@ def delete_task(request, task_id):
 # User
 ###############################################################################
 from django.contrib.auth import get_user_model
+from crum import get_current_user
 
 def index_users(request):
   User = get_user_model()
   users = User.objects.all()
   return render(request, 'tranai/index_users.html', {'users': users})
+
+def switch_current_task(request, task_id):
+  task = Task.objects.get(pk=task_id)
+  current_user = get_current_user(); #print(type(current_user))
+  User = get_user_model()  
+  User.objects.all().filter(id=current_user.id).update(cur_task=task.id)
+#   if @user.save
+#     flash[:success] = "Assignment was successfully switched"
+#     if Assignment.admin_roles.include? @user.cur_assign.role
+#       redirect_to assignment_path(assignment)
+#     else
+#       translation = @user.cur_assign.translation
+#       sentence = translation.sentences.where(rsen: @user.cur_assign.place).first
+#       redirect_to translation_sentence_path(translation, sentence)
+#     end
+#   else
+#     flash[:danger] = "Assignment was NOT switched"
+#     redirect_to :back
+#   end
+# end
+  # return render(request, 'tranai/show_translation_sentence.html', {'translation': task.translation, 'sentence': 1})
+  # return render(request, 'tranai/show_translation_sentence.html', {'translation': get_current_user().cur_task.translation, 'sentence': 1})
+  # render(request, 'tranai/show_task.html', {'task': task})
+  # return render(request, 'tranai/show_task.html', {'task': task})
+  # return render(request, 'tranai/show_task.html', {'task': get_current_user().cur_task})
+  # return redirect(f'switch_current_task/tasks/{task_id}')
+  # return redirect('index-tasks') WORKS!!!!
+  #- return redirect('switch-current-task')
+  return redirect(f'/tasks/{task.id}/') #WORKS!!!
+  #- return redirect(f'translations/{get_current_user().cur_task.translation.id}/sentences/1/')

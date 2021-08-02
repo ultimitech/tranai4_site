@@ -42,5 +42,8 @@ urlpatterns = [
 
     # User
     path('users/', views.index_users, name='index-users'),
+    # path('switch_current_task/translations/<translation_id>/sentences/<sentence_id>/', views.switch_current_task, name='switch-current-task'),
+    path('switch_current_task/tasks/<task_id>/', views.switch_current_task, name='switch-current-task'),
+
 
 ]

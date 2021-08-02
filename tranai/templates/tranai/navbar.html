@@ -42,7 +42,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
   {%  get_current_user_active_tasks as active_tasks %}
   {%  for at in active_tasks %}
-            <li><a class="dropdown-item" href="">[{{at.translation.lan}}] {{at.translation.document.descriptor}} {{at.translation.document.title}} ({{at.role}})</a></li>
+            <li><a class="dropdown-item" href="{% url 'switch-current-task' at.id %}">[{{at.translation.lan}}] {{at.translation.document.descriptor}} {{at.translation.document.title}} ({{at.role}})</a></li>
   {%  endfor %}
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Help</a></li>
