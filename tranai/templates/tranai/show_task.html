@@ -9,7 +9,16 @@
   <strong>Role:</strong>&nbsp;&nbsp;{{ task.role }}<br>
   <strong>Active:</strong>&nbsp;&nbsp;{{ task.active }}<br>
   <strong>Place:</strong>&nbsp;&nbsp;{{ task.place }}<br>
+{% if user.cur_task and user.cur_task.role in 'MT,HT,NT,EP' %}
   <strong>Content imported:</strong>&nbsp;&nbsp;{{ task.ci }}<br>
+  <strong>Content:</strong>&nbsp;&nbsp;
+  {% if task.ci %}
+  <a class="btn btn-outline-primary btn-sm" href="">Delete Content</a> <!--% url 'delete-lookup' translation.document.id translation.id %--><br>
+  {% else %}
+  <a class="btn btn-outline-primary btn-sm" href="{% url 'import-content-for-validation' task.id %}">Validate Content</a> <!---->
+  <a class="btn btn-outline-primary btn-sm" href="">Import Content</a> <!--% url 'delete-lookup' translation.document.id translation.id %--><br>
+  {% endif %}
+{% endif %}
   <!--<strong>Translation:</strong>&nbsp;&nbsp;{{ task.translation }}<br>-->
   <strong>Translation:</strong>&nbsp;&nbsp;<a href="{% url 'show-document-translation' task.translation.document.id task.translation.id %}">{{ task.translation }}</a><br>
   <strong>User:</strong>&nbsp;&nbsp;{{ task.user }}<br>

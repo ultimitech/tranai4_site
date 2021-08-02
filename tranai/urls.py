@@ -40,6 +40,8 @@ urlpatterns = [
     path('tasks/<task_id>/edit', views.update_task, name='update-task'),
     path('delete_task/<task_id>', views.delete_task, name='delete-task'),
 
+    path('import_content_for_validation/tasks/<task_id>/', views.import_content_for_validation, name='import-content-for-validation'),
+
     # User
     path('users/', views.index_users, name='index-users'),
     # path('switch_current_task/translations/<translation_id>/sentences/<sentence_id>/', views.switch_current_task, name='switch-current-task'),

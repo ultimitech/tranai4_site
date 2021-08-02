@@ -6,6 +6,8 @@ from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Document, Lookup, Translation, Task, Sentence
 from .forms import DocumentForm, TranslationForm, TaskForm, SentenceForm
+from django.contrib import messages
+import re
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
   return render(request, 'tranai/home.html', {})
@@ -361,6 +363,52 @@ def delete_task(request, task_id):
   return redirect('index-tasks')
   # return redirect(f'/tasks/')
 
+def import_content_for_validation(request, task_id):
+  if request.method == 'POST':
+    # prepare file as list of strings
+    str_text = ''
+    for line in request.FILES['document']: str_text = str_text + line.decode()
+    str_split = str_text.split('\n'); print(str_split[:10])
+
+    # remove title line
+    str_split.pop(0)
+    rsub_sen_ary = []
+    for line in str_split:
+      # line = line.strip()
+      if line: #non-empty after strip, only non-blank lines
+        # 1. test line for valid descriptor
+        match = re.search('^[0-9]+\.[0-9]+\.[ncspqkhijv]\s', line)
+        if match == None:
+          print(f"ERROR: {line}")
+          messages.error(request, f"ERROR: Invalid descriptor in line: {line}  (Validation failed. Import aborted.)")
+          return redirect(f'/tasks/{task_id}/')
+        # 2. test for unique rsub.sen combinations
+        # get line parts
+        line_parts = line.split(' ', 2) #split by space into 2 parts
+        # get signature
+        signature = line_parts[0]
+        # get signature parts
+        signature_parts = signature.split('.')
+        rsub = signature_parts[0]
+        sen = signature_parts[1]
+        rsub_sen = rsub + '.' + sen; #print(f"rsub_sen: XXX{rsub_sen}XXX")
+        if rsub_sen in rsub_sen_ary:
+          print(f"ERROR: Duplicate rsub.sen combination found in line: {line}  (Validation failed. Import aborted.)")
+          messages.error(request, f"ERROR: Duplicate rsub.sen combination found in line: {line}  (Validation failed. Import aborted.)")
+          return redirect(f'/tasks/{task_id}/')
+        else:
+          rsub_sen_ary.append(rsub_sen)
+    task = Task.objects.all().get(pk=task_id)
+    required_unique_combinations = task.translation.senc #found_unique_combinations = rsub_sen_ary.uniq.length
+    found_unique_combinations = len(rsub_sen_ary)
+    print(f"Unique rsub.sen combinations required: {required_unique_combinations}")
+    print(f"Unique rsub.sen combinations found: {found_unique_combinations}")
+    messages.info(request, f"Unique rsub.sen combinations found: #{found_unique_combinations}, Required:  #{required_unique_combinations}.")
+    return redirect(f'/tasks/{task_id}/')
+  else:
+    return render(request, 'tranai/upload.html')
+  
+  
 ###############################################################################
 # User
 ###############################################################################
