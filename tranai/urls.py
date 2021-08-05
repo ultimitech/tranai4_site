@@ -33,6 +33,13 @@ urlpatterns = [
     path('translations/<translation_id>/sentences/<sentence_id>/edit', views.update_translation_sentence, name='update-translation-sentence'),
     path('translations/<translation_id>/sentences/<sentence_id>/delete', views.delete_translation_sentence, name='delete-translation-sentence'),
 
+    # # Change #add AFTER import_content
+    # # path('sentences/<sentence_id>/changes/', views.index_sentence_changes, name='index-sentence-changes'),
+    # path('sentences/<sentence_id>/changes/<change_id>/', views.show_sentence_change, name='show-sentence-change'),
+    # path('sentences/<sentence_id>/changes/new', views.create_sentence_change, name='create-sentence-change'),
+    # path('sentences/<sentence_id>/changes/<change_id>/edit', views.update_sentence_change, name='update-sentence-change'),
+    # path('sentences/<sentence_id>/changes/<change_id>/delete', views.delete_sentence_change, name='delete-sentence-change'),
+
     # Task
     path('tasks/', views.index_tasks, name='index-tasks'),
     path('tasks/<task_id>/', views.show_task, name='show-task'),
@@ -41,6 +48,7 @@ urlpatterns = [
     path('delete_task/<task_id>', views.delete_task, name='delete-task'),
 
     path('import_content_for_validation/tasks/<task_id>/', views.import_content_for_validation, name='import-content-for-validation'),
+    path('import_content/tasks/<task_id>/', views.import_content, name='import-content'),
 
     # User
     path('users/', views.index_users, name='index-users'),

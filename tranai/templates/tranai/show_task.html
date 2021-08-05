@@ -16,7 +16,7 @@
   <a class="btn btn-outline-primary btn-sm" href="">Delete Content</a> <!--% url 'delete-lookup' translation.document.id translation.id %--><br>
   {% else %}
   <a class="btn btn-outline-primary btn-sm" href="{% url 'import-content-for-validation' task.id %}">Validate Content</a> <!---->
-  <a class="btn btn-outline-primary btn-sm" href="">Import Content</a> <!--% url 'delete-lookup' translation.document.id translation.id %--><br>
+  <a class="btn btn-outline-primary btn-sm" href="{% url 'import-content' task.id %}">Import Content</a> <!----><br>
   {% endif %}
 {% endif %}
   <!--<strong>Translation:</strong>&nbsp;&nbsp;{{ task.translation }}<br>-->
