@@ -136,6 +136,9 @@ class Sentence(models.Model):
   tie = models.BooleanField('Tie', default=False)
   translation = models.ForeignKey(Translation, blank=False, null=False, on_delete=models.CASCADE, related_name='sentences')
 
+  def __str__(self):
+    return f"[{self.blk} {self.sub}.{self.rsub}.{self.sen}.{self.rsen}] {self.typ} {self.translation.tran_title}"
+
 class Lookup(models.Model):
   blk = models.IntegerField('Block', blank=True, null=True,)
   rsub = models.IntegerField('Running sub-block', blank=True, null=True,)

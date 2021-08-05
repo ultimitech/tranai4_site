@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
-from .models import Document, Lookup, Translation, Task, Sentence
+from .models import Addition, Change, Document, Lookup, Translation, Task, Sentence
 from .forms import DocumentForm, TranslationForm, TaskForm, SentenceForm
 from django.contrib import messages
 import re
@@ -250,7 +250,12 @@ def delete_lookup(request, document_id, translation_id):
 def show_translation_sentence(request, translation_id, sentence_id):
   translation = Translation.objects.get(pk=translation_id)
   sentence = translation.sentences.get(pk=sentence_id)
-  return render(request, 'tranai/show_translation_sentence.html', {'translation': translation, 'sentence': sentence})
+
+  #update E_change
+  # @E_edit = Edit.joins(sentence: :translation).where(translations: {id: @sentence.translation.eng_tran_id}, sentences: {rsen: @sentence.rsen}).first
+  E_change = Sentence.objects.filter(translation__id=sentence.translation.eng_tran_id, rsen=sentence.rsen)
+
+  return render(request, 'tranai/show_translation_sentence.html', {'translation': translation, 'sentence': sentence, 'E_change': E_change})
 
 def create_translation_sentence(request, translation_id):
   translation = Translation.objects.get(pk=translation_id)
@@ -376,6 +381,7 @@ def import_content_for_validation(request, task_id):
     for line in str_split:
       # line = line.strip()
       if line: #non-empty after strip, only non-blank lines
+        print(line)
         # 1. test line for valid descriptor
         match = re.search('^[0-9]+\.[0-9]+\.[ncspqkhijv]\s', line)
         if match == None:
@@ -408,6 +414,108 @@ def import_content_for_validation(request, task_id):
   else:
     return render(request, 'tranai/upload.html')
   
+# from django.core.exceptions import DoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
+
+def import_content(request, task_id):
+  task = Task.objects.all().get(pk=task_id)
+  # determine the kind of additions to be created
+  role = task.role
+  if role in ['MT', 'HT', 'NT']:
+    kind = 'T'
+  elif role in ['TE', 'CE', 'LA']: #both 'C' and 'V' kinds
+    messages.error(request, f"Content import for role #{role} is not currently supported")
+    return redirect(f'/tasks/{task_id}/')
+  elif role in ['EE', 'SE', 'PE']: #'C' kind
+    messages.error(request, f"Content import for role {role} is not currently supported")
+    return redirect(f'/tasks/{task_id}/')
+  elif role in ['EP']:
+    kind = 'E'
+  else:
+    messages.error(request, f"ERROR: Invalid role: {role}")
+    return redirect(f'/tasks/{task_id}/')
+
+  if request.method == 'POST':
+    # prepare file as list of strings
+    str_text = ''
+    for line in request.FILES['document']: str_text = str_text + line.decode()
+    str_split = str_text.split('\n'); print(str_split[:10])
+
+    str_split.pop(0) #remove title line
+    num_of_additions = 0
+    for line in str_split:
+      # line = line.strip()
+      if line: #non-empty after strip, only non-blank lines
+        print(line)
+
+        # get line parts
+        line_parts = line.split(' ', 1) #split by space into 2 parts
+
+        # get signature
+        signature = line_parts[0]
+
+        # get content
+        content = line_parts[1].strip() #remove NL at end: No NL here
+
+        # get signature parts
+        signature_parts = signature.split('.')
+        rsub_num = int(signature_parts[0])
+        sen_num = int(signature_parts[1])
+        typ_char = signature_parts[2]; #print(f"==========={rsub_num}.{sen_num}============")
+
+        #check if sentence already exists, if not, create
+        # existing_sen = Sentence.joins(:translation).where(translations: {id: @assignment.translation_id}, sentences: {rsub: rsub_num, sen: sen_num})
+        # try: 
+        existing_sen = Sentence.objects.filter(translation__id=task.translation_id, rsub=rsub_num, sen=sen_num)
+        if len(existing_sen) == 0:
+          print('does not exist............')
+          if task.translation.eng_tran is not None: #OTH
+            # lookup = task.translation.eng_tran.lookups.where(rsub: rsub_num).first
+            lookup = Lookup.objects.filter(translation_id=task.translation.eng_tran.id, rsub=rsub_num)[0]
+          else: #ENG
+            # lookup = task.translation.lookups.where(rsub: rsub_num).first
+            lookup = Lookup.objects.filter(translation_id=task.translation.id, rsub=rsub_num)[0]; print('lookup:',lookup)
+          blk_num = lookup.blk #was: blk_num = lookup.blk
+          sub_num = lookup.sub #was: sub_num = lookup.sub
+          # existing_sen = Sentence.create(rsen: num_of_contributions+1, blk: blk_num, sub: sub_num, rsub: rsub_num, sen: sen_num, typ: typ_char, tie: false, translation: @assignment.translation)
+          existing_sen = Sentence.objects.create(rsen=num_of_additions+1, blk=blk_num, sub=sub_num, rsub=rsub_num, sen=sen_num, typ=typ_char, tie=False, translation=task.translation)
+        elif len(existing_sen) == 1:
+            print('exists............')
+            existing_sen = existing_sen[0] #was: existing_sen = existing_sen.first
+        else:
+            messages.error(request, f"There is more than one sentence with rsub: {rsub_num} and sen: {sen_num}. This is an error!")
+            return redirect(f'/tasks/{task_id}/')
+        # except ObjectDoesNotExist: #was: if existing_sen.length == 0:if existing_sen.length == 0:
+
+        #create new change
+        new_change = Change.objects.create(content=content, hid=False, top='Z', sentence=existing_sen)
+        #print(f"--- {new_change.edit_text}"
+        if new_change:
+          print(f"new_change: {new_change.content}")
+        else:
+          messages.error(request, f"ERROR: Could not create change with content: {content}, sentence: #{existing_sen.id}.")
+          return redirect(f'/tasks/{task_id}/')
+
+        #create addition
+        new_addition = Addition.objects.create(kind=kind, effort_in_seconds=0, change=new_change, task=task)
+        #print(f"--- #{new_addition.addition_text}")
+        if new_addition:
+          print(f"new_addition: {new_addition.change.content}")
+        else:
+          messages.error(request, f"ERROR: Could not create addition with kind: {kind}, change: {new_change.id}.")
+          return redirect(f'/tasks/{task_id}/')
+
+        new_edit = None
+        new_addition = None
+        num_of_additions += 1
+
+    #mark as imported
+    Task.objects.filter(id=task_id).update(ci=True) #was: @assignment.update(ci: true)
+
+    messages.error(request, f"{num_of_additions} '{kind}' additions for this task imported")
+    return redirect(f'/tasks/{task_id}/')
+  else:
+    return render(request, 'tranai/upload.html')
   
 ###############################################################################
 # User

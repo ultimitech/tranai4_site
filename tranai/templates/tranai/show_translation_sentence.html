@@ -6,12 +6,18 @@
   <h2>Sentence</h2>
   <!-- <br> -->
   <strong>Id:</strong>&nbsp;&nbsp;{{ sentence.id }}<br>
-  <strong>Language:</strong>&nbsp;&nbsp;{{ sentence.blk }}<br>
-  <strong>Translated Title:</strong>&nbsp;&nbsp;{{ sentence.sub }}<br>
-  <strong>English Translation:</strong>&nbsp;&nbsp;{{ sentence.rsub }}<br>
-  <strong>Description:</strong>&nbsp;&nbsp;{{ sentence.sen }}<br>
-  <strong>Block Count:</strong>&nbsp;&nbsp;<i>{{ sentence.rsen }}</i><br>
-  <strong>Sub-block Count:</strong>&nbsp;&nbsp;{{ sentence.typ }}<br>
-  <strong>Sentence Count:</strong>&nbsp;&nbsp;{{ sentence.tie }}<br>
+  <strong>Blk:</strong>&nbsp;&nbsp;{{ sentence.blk }}<br>
+  <strong>Sub:</strong>&nbsp;&nbsp;{{ sentence.sub }}<br>
+  <strong>RSub:</strong>&nbsp;&nbsp;{{ sentence.rsub }}<br>
+  <strong>Sen:</strong>&nbsp;&nbsp;{{ sentence.sen }}<br>
+  <strong>RSen:</strong>&nbsp;&nbsp;<i>{{ sentence.rsen }}</i><br>
+  <strong>Typ:</strong>&nbsp;&nbsp;{{ sentence.typ }}<br>
+  <strong>Tie:</strong>&nbsp;&nbsp;{{ sentence.tie }}<br>
+  <a class="btn btn-outline-primary btn-sm" href="">Prev Sentence</a> <!--% url 'prev-sentence' sentence.translation.id sentence.id %-->
+  <a class="btn btn-outline-primary btn-sm" href="">Next Sentence</a><br> <!--% url 'next-sentence' sentence.translation.id sentence.id %-->
+  {{E_change.content}}<br>
+  {% for change in sentence.changes.all %}
+    {{change.content}}
+  {% endfor %}
 {% endblock %}
 
