@@ -3,7 +3,13 @@
 {% block content %}
 
 <center><h2>All Documents</h2></center>
-<table class="table table-hover">
+&nbsp;&nbsp;
+<form class="d-flex" method="POST" action="{% url 'search-documents' %}">
+  {% csrf_token %}
+  <input class="form-control me-2" type="search" placeholder="Document Search" aria-label="Search" name="searched">
+  <button class="btn btn-success" type="submit">Search</button>
+</form>&nbsp;&nbsp;
+<table class="table table-hover table-striped table-bordered">
   <thead>
     <tr>
       <th scope="col">Id</th>
