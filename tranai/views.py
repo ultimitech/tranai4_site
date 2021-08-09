@@ -1,4 +1,5 @@
 # from django.http import request
+from django.http import request
 from tranai4_site.settings import AUTH_USER_MODEL
 from django.shortcuts import render, redirect
 import calendar
@@ -8,6 +9,7 @@ from .models import Addition, Change, Document, Lookup, Translation, Task, Sente
 from .forms import DocumentForm, TranslationForm, TaskForm, SentenceForm
 from django.contrib import messages
 import re
+import json
 
 def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
   return render(request, 'tranai/home.html', {})
@@ -86,6 +88,19 @@ def search_documents(request):
   else:
     return render(request, 'tranai/search_documents.html', {})    
 
+def search_documents2():
+  if request.method == 'POST':
+    dod = models.DateField('Date Of Delivery')
+    tod = models.CharField('Time Of Day', max_length=1, validators=[MinLengthValidator(1), MaxLengthValidator(1)], choices=TimeOfDay.choices, default=TimeOfDay.NO_TOD, blank=False,)
+    dow = models.CharField('Day Of Week', max_length=2, choices=DayOfWeek.choices, default=DayOfWeek.SUNDAY, blank=False,)
+    title = models.CharField('Document Title', max_length=64, blank=False,)
+    descriptor = models.CharField('Descriptor', max_length=120, blank=False,)
+    search_str = json.loads(request.body).get('searchText')
+
+    documents = Document.objects.filter(title__starts_with=search_str, descriptor=request.user)lo
+
+
+  pass
 ###############################################################################
 # Translation
 ###############################################################################

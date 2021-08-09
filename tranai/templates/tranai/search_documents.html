@@ -12,7 +12,16 @@
       <h1 class="display-6 fw-bold">You searched for {{ searched }}</h1>
       <br>
 {% for document in documents %}
-      {{ document }}<br>
+      <!-- {{ document }}<br> -->
+      <tr>
+            <th scope="row"><a href="{% url 'show-document' document.id %}">{{ document.id }}</a></th> <!---->
+            <td>{{ document.dod }}</td>
+            <td>{{ document.tod }}</td>
+            <td>{{ document.dow }}</td>
+            <td>{{ document.title }}</td>
+            <td><a href="{% url 'update-document' document.id %}">Edit</a></td> <!---->
+            <td><a href="{% url 'delete-document' document.id %}">Delete</a></td> <!---->
+          </tr>      
 {% endfor %}
 
 {% else %}
