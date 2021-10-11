@@ -3,6 +3,73 @@ from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinLengthValidator, MaxLengthValidator, MinValueValidator, MaxValueValidator
 
+# abstract model to showcase inheritence and polymorphism
+# class Translator(models.Model):
+class Translator():
+  # created = models.DateTimeField(auto_now_add=True)
+  # updated = models.DateTimeField(auto_now=True)
+  # email_address = models.CharField(max_length=255)
+  # username = models.CharField(max_length=255)
+  # created_at = models.DateTimeField(auto_now_add=True)
+  # created_at = models.CharField(max_length=255)
+  # cur_task = models.CharField(max_length=255)
+  # admin = models.BooleanField(max_length=255)
+  # is_staff = models.BooleanField(max_length=255)
+  # is_active = models.BooleanField(max_length=255)
+  # first_name = models.CharField(max_length=255)
+  _is_active = models.BooleanField(max_length=255)
+  _role = models.CharField(max_length=255)
+
+  def __init__(self, is_active, role):
+    self.is_active = is_active
+    self.role = role
+
+  def identify(self):
+    # print report everything that goes on with that translator
+    pass
+
+  class Meta:
+    abstract = True
+    ordering = ['role']
+
+class HumanTranslator(Translator):
+  first_name = models.CharField(max_length=255)
+  last_name = models.CharField(max_length=255)
+
+  def __init__(self, is_active, role, first_name, last_name):
+    super().__init__(is_active=is_active, role=role)
+    self.first_name = first_name
+    self.last_name = last_name
+
+  
+  def identify(self):
+      print(f"IDENTITY OF HUMAN TRANSLATOR:\n\tFirst Name: {self.first_name}\n\tLast Name: {self.last_name}")
+
+  class Meta(Translator.Meta):
+    ordering = ['-role']
+
+class MachineTranslator(Translator):
+  engine_name = models.CharField(max_length=255)
+  engine_version = models.CharField(max_length=255)
+  # nerual machine translation engine todma,todgaao, engine
+  # e.g bing, yandex, google translate, DeepL,aws translate,self-trained
+  # engine
+  # engine_version
+  # year number of bing etc
+  # custom 1.0.0-.1
+
+
+  def __init__(self, is_active, role, engine_name, engine_version):
+    super().__init__(is_active=is_active, role=role)
+    self.engine_name = engine_name
+    self.engine_version = engine_version
+
+  def identify(self):
+      print(f"IDENTITY OF MACHINE TRANSLATOR:\n\tEngine Name: {self.engine_name}\n\tEngine Version: {self.engine_version}")    
+
+  class Meta(Translator.Meta):
+    ordering = ['-role']
+
 class Document(models.Model):
   class TimeOfDay(models.TextChoices):
     NO_TOD = 'n', _('No Time Of Day')

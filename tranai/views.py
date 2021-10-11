@@ -97,7 +97,7 @@ def search_documents2():
     descriptor = models.CharField('Descriptor', max_length=120, blank=False,)
     search_str = json.loads(request.body).get('searchText')
 
-    documents = Document.objects.filter(title__starts_with=search_str, descriptor=request.user)lo
+    documents = Document.objects.filter(title__starts_with=search_str, descriptor=request.user)
 
 
   pass
