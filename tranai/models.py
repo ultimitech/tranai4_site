@@ -3,6 +3,127 @@ from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinLengthValidator, MaxLengthValidator, MinValueValidator, MaxValueValidator
 
+class Translator3():
+  def __init__(self, is_active, role):
+    self.__is_active = is_active
+    self.__role = role
+  
+  def set__is_active(self, value):
+    self.__is_active = value
+
+  def get__is_active(self):
+    return self.__is_active
+
+  def identify(self):
+    print("Translator3 identify() method invoked demonstrating polymorphism as behavior in many forms modeling a Translator object.")
+    pass
+
+class HumanTranslator3(Translator3):
+  def __init__(self, is_active, role, first_name, last_name):
+      super().__init__(is_active=is_active, role=role)
+      self.__first_name = first_name
+      self.__last_name = last_name
+
+  def set__first_name(self, value):
+    self.__first_name = value
+
+  def get__last_name(self):
+    return self.__last_name
+
+  def identify(self):
+      print("HumanTranslator3 identify() method invoked demonstrating polymorphism as behavior in many forms modeling a HumanTranslator3 object.")
+
+class MachineTranslator3(Translator3):
+  def __init__(self, is_active, role, engine_name, engine_version):
+      super().__init__(is_active=is_active, role=role)
+      self.__engine_name = engine_name
+      self.__engine_version = engine_version
+
+  def set__engine_name(self, value):
+    self.__engine_name = value
+
+  def get__engine_version(self):
+    return self.__engine_version
+
+  def identify(self):
+      print("MachineTranslator3 identify() method invoked demonstrating polymorphism as behavior in many forms modeling a HumanTranslator3 object.")
+
+class Translator2:
+  def __init__(self, is_active, role):
+    self.is_active = is_active
+    self.role = role
+  
+  def __str__(self):
+    return "Is Active: {}, Role: {}".format(self.is_active, self.role)
+
+class HumanTranslator2(Translator2):
+  def __init__(self, is_active, role):
+      super().__init__(is_active, role)
+
+
+
+# class Person:
+#   def __init__(self, name, age, height):
+#     self.name = name
+#     self.age = age
+#     self.height = height
+
+#   def __str__(self):
+#     return "Name: {}, Age: {}, Height: {}".format(self.name, self.age, self.height)
+
+#   def get_older(self, years):
+#     self.age += years
+  
+# class Worker(Person):
+#   def __init__(self, name, age, height, salary):
+#       super(Worker, self).__init__(name, age, height)
+#       self.salary = salary
+  
+#   def __str__(self):
+#       text = super(Worker, self).__str__()
+#       text += ", Salary {}".format(self.salary)
+  
+#   def calc_yearly_salary(self):
+#     return self.salary*12
+
+class Person:
+  def __init__(self, name, age, height):
+    self.__name = name
+    self.__age = age
+    self.__height = height
+  
+  # @property
+  def Name(self):
+    return self.__name
+
+  # @Name.setter
+  def Name(self, value):
+    self.__name = value
+
+# p1 = Person("Mike", 20, 'm')
+# print(p1.Name)
+# p1.__name = "" this doesnt work
+
+  def __str__(self):
+    return "Name: {}, Age: {}, Height: {}".format(self.name, self.age, self.height)
+
+  def get_older(self, years):
+    self.age += years
+  
+class Worker(Person):
+  def __init__(self, name, age, height, salary):
+      super(Worker, self).__init__(name, age, height)
+      self.salary = salary
+  
+  def __str__(self):
+      text = super(Worker, self).__str__()
+      text += ", Salary {}".format(self.salary)
+  
+  def calc_yearly_salary(self):
+    return self.salary*12
+
+
+
 # abstract model to showcase inheritence and polymorphism
 # class Translator(models.Model):
 class Translator():
@@ -17,8 +138,8 @@ class Translator():
   # is_staff = models.BooleanField(max_length=255)
   # is_active = models.BooleanField(max_length=255)
   # first_name = models.CharField(max_length=255)
-  _is_active = models.BooleanField(max_length=255)
-  _role = models.CharField(max_length=255)
+  is_active = models.BooleanField(max_length=255)
+  role = models.CharField(max_length=255)
 
   def __init__(self, is_active, role):
     self.is_active = is_active
