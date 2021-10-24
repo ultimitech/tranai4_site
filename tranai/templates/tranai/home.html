@@ -26,30 +26,32 @@
   ######################################################################### README FOR EVALUATORS ############################################################################
   B.   Design and develop a fully functional software application that addresses your identified business problem or organizational need. Include each of the following attributes as they are the minimum required elements for the application:
 
-•   one of the following application types: mobile, web, or stand-alone application (web app should be evident by browsing to http://x.com)
+•   one of the following application types: mobile, web, or stand-alone application (web app should be evident by browsing to http://tranai4-env.eba-ra72yeuq.us-west-2.elasticbeanstalk.com/)
 
-•   code including [x]inheritance, [x]polymorphism, and [x]encapsulation (see search_documents.html, line 11), (see views.py, line 75)
-inheritance: (see models.py, line 49-112), 
-polymorphism: (see models.py, line 49-112), polymorphism evident by calling identify() method for each inherited object as behavior in many forms.
-encapsulation: (see delete_document.html), encapsulation evident through getters and/or setters to access private instance members. (see models., line ??)
-•   search functionality with multiple row results and displays (see search_documents.html, line 11), (see views.py, line 75)
+•   code including inheritance, polymorphism, and encapsulation
+inheritance: (see models.py, lines 6-50)
+polymorphism: (see models.py, lines 6-50), polymorphism evident by calling identify() method for each inherited object as behavior in many forms.
+encapsulation: (see models.py, lines 6-50), encapsulation evident through getters and/or setters to access private instance members. (see models.py, lines 12-47)
+•   search functionality with multiple row results and displays (see search_documents.html, line 11), (see views.py, line 80)?? update if models or views are updated shift??
 
 •   a database component with the functionality to securely add, modify, and delete the data
 add: (see create_document.html), (see views.py, line 26)
 modify: (see update_document.html), (see views.py, line 44)
 delete: (see delete_document.html), (see views.py, line 64)
 
-•   ability to generate reports with multiple columns, multiple rows, date-time stamp, and title
+•   ability to generate reports with multiple columns, multiple rows, date-time stamp, and title??
 
-•   exception controls (requirement satisfied in [f], line l)j
+•   exception controls (requirement satisfied in file view.py as try/catch blocks to perform various validations)
 
-•   validation functionality (requirement satisfied in [f], line l)
+•   validation functionality (requirement satisfied in throughout file view.py to perform various input validations and via validators in file models.py)
 
-•   industry appropriate security features (requirement satisfied in [f], line l) CSRF (cross-site request forgery) protection, form input validation, and Django web framework mechanisms in place
-against bad actors. Django incorporates latest industry practice security measures throughout it's very popular Django web framework.
+•   industry appropriate security features evident through CSRF (cross-site request forgery) protection, form input validation, and Django web framework mechanisms in place
+against malicious actors. Django incorporates latest industry practice security measures throughout its very popular Django web framework.
 
-•   design elements that make the application scalable (see search_documents.html, line 11), (see views.py, line 75)
+•   design elements that make the application scalable (Tran-AI NMT web app is built using best practices around modern web development methodologies, tools, and technologies. Using the Django web framework allows room for expansion
+and scalability support already built-in. Tran-AI NMT follows a modular object-oriented design that scales well with adding new users over time and meeting database performance requirements. Using PostgreSQL database
+allows for scalability when user demands are escalated to higher numbers.
 
-•   a user-friendly, functional GUI (user-friendly, functional GUI should be evident at http://x.com)
+•   a user-friendly, functional GUI (user-friendly, functional GUI should be evident at http://tranai4-env.eba-ra72yeuq.us-west-2.elasticbeanstalk.com/??)
   ######################################################################### README FOR EVALUATORS ############################################################################
 -->

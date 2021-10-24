@@ -19,7 +19,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
 ###############################################################################
 
 def index_documents(request):
-  document_list = Document.objects.all().order_by('title')#sort by date instead of title
+  document_list = Document.objects.all().order_by('title')#sort by date instead of title??
   return render(request, 'tranai/index_documents.html', {'document_list': document_list})
 
 def show_document(request, document_id):

@@ -11,18 +11,29 @@
 {% if searched %}
       <h1 class="display-6 fw-bold">You searched for {{ searched }}</h1>
       <br>
+      <table class="table table-hover table-striped table-bordered">
+      <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Day</th>
+            <!-- <th>Edit</th>
+            <th>Delete</th> -->
+      </tr>
 {% for document in documents %}
       <!-- {{ document }}<br> -->
       <tr>
             <th scope="row"><a href="{% url 'show-document' document.id %}">{{ document.id }}</a></th> <!---->
+            <td>{{ document.title }}</td>
             <td>{{ document.dod }}</td>
             <td>{{ document.tod }}</td>
             <td>{{ document.dow }}</td>
-            <td>{{ document.title }}</td>
-            <td><a href="{% url 'update-document' document.id %}">Edit</a></td> <!---->
-            <td><a href="{% url 'delete-document' document.id %}">Delete</a></td> <!---->
-          </tr>      
-{% endfor %}
+            
+            <!-- <td><a href="{% url 'update-document' document.id %}">Edit</a></td> -->
+            <!-- <td><a href="{% url 'delete-document' document.id %}">Delete</a></td> -->
+          </tr>
+{% endfor %}</table>
 
 {% else %}
       <!-- <h1 class="display-6 fw-bold">Enter a Document Title to perform Document Search...</h1> -->

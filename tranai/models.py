@@ -3,7 +3,8 @@ from django.core.validators import RegexValidator
 from django.utils.translation import gettext_lazy as _
 from django.core.validators import MinLengthValidator, MaxLengthValidator, MinValueValidator, MaxValueValidator
 
-class Translator3():
+# base model to showcase inheritence, polymorphism, and encapsulation
+class Translator():
   def __init__(self, is_active, role):
     self.__is_active = is_active
     self.__role = role
@@ -15,10 +16,10 @@ class Translator3():
     return self.__is_active
 
   def identify(self):
-    print("Translator3 identify() method invoked demonstrating polymorphism as behavior in many forms modeling a Translator object.")
+    print("Translator identify() method invoked demonstrating polymorphism as behavior in many forms modeling a Translator object.")
     pass
 
-class HumanTranslator3(Translator3):
+class HumanTranslator(Translator):
   def __init__(self, is_active, role, first_name, last_name):
       super().__init__(is_active=is_active, role=role)
       self.__first_name = first_name
@@ -31,9 +32,9 @@ class HumanTranslator3(Translator3):
     return self.__last_name
 
   def identify(self):
-      print("HumanTranslator3 identify() method invoked demonstrating polymorphism as behavior in many forms modeling a HumanTranslator3 object.")
+      print("HumanTranslator identify() method invoked demonstrating polymorphism as behavior in many forms modeling a HumanTranslator object.")
 
-class MachineTranslator3(Translator3):
+class MachineTranslator(Translator):
   def __init__(self, is_active, role, engine_name, engine_version):
       super().__init__(is_active=is_active, role=role)
       self.__engine_name = engine_name
@@ -46,150 +47,7 @@ class MachineTranslator3(Translator3):
     return self.__engine_version
 
   def identify(self):
-      print("MachineTranslator3 identify() method invoked demonstrating polymorphism as behavior in many forms modeling a HumanTranslator3 object.")
-
-class Translator2:
-  def __init__(self, is_active, role):
-    self.is_active = is_active
-    self.role = role
-  
-  def __str__(self):
-    return "Is Active: {}, Role: {}".format(self.is_active, self.role)
-
-class HumanTranslator2(Translator2):
-  def __init__(self, is_active, role):
-      super().__init__(is_active, role)
-
-
-
-# class Person:
-#   def __init__(self, name, age, height):
-#     self.name = name
-#     self.age = age
-#     self.height = height
-
-#   def __str__(self):
-#     return "Name: {}, Age: {}, Height: {}".format(self.name, self.age, self.height)
-
-#   def get_older(self, years):
-#     self.age += years
-  
-# class Worker(Person):
-#   def __init__(self, name, age, height, salary):
-#       super(Worker, self).__init__(name, age, height)
-#       self.salary = salary
-  
-#   def __str__(self):
-#       text = super(Worker, self).__str__()
-#       text += ", Salary {}".format(self.salary)
-  
-#   def calc_yearly_salary(self):
-#     return self.salary*12
-
-class Person:
-  def __init__(self, name, age, height):
-    self.__name = name
-    self.__age = age
-    self.__height = height
-  
-  # @property
-  def Name(self):
-    return self.__name
-
-  # @Name.setter
-  def Name(self, value):
-    self.__name = value
-
-# p1 = Person("Mike", 20, 'm')
-# print(p1.Name)
-# p1.__name = "" this doesnt work
-
-  def __str__(self):
-    return "Name: {}, Age: {}, Height: {}".format(self.name, self.age, self.height)
-
-  def get_older(self, years):
-    self.age += years
-  
-class Worker(Person):
-  def __init__(self, name, age, height, salary):
-      super(Worker, self).__init__(name, age, height)
-      self.salary = salary
-  
-  def __str__(self):
-      text = super(Worker, self).__str__()
-      text += ", Salary {}".format(self.salary)
-  
-  def calc_yearly_salary(self):
-    return self.salary*12
-
-
-
-# abstract model to showcase inheritence and polymorphism
-# class Translator(models.Model):
-class Translator():
-  # created = models.DateTimeField(auto_now_add=True)
-  # updated = models.DateTimeField(auto_now=True)
-  # email_address = models.CharField(max_length=255)
-  # username = models.CharField(max_length=255)
-  # created_at = models.DateTimeField(auto_now_add=True)
-  # created_at = models.CharField(max_length=255)
-  # cur_task = models.CharField(max_length=255)
-  # admin = models.BooleanField(max_length=255)
-  # is_staff = models.BooleanField(max_length=255)
-  # is_active = models.BooleanField(max_length=255)
-  # first_name = models.CharField(max_length=255)
-  is_active = models.BooleanField(max_length=255)
-  role = models.CharField(max_length=255)
-
-  def __init__(self, is_active, role):
-    self.is_active = is_active
-    self.role = role
-
-  def identify(self):
-    # print report everything that goes on with that translator
-    pass
-
-  class Meta:
-    abstract = True
-    ordering = ['role']
-
-class HumanTranslator(Translator):
-  first_name = models.CharField(max_length=255)
-  last_name = models.CharField(max_length=255)
-
-  def __init__(self, is_active, role, first_name, last_name):
-    super().__init__(is_active=is_active, role=role)
-    self.first_name = first_name
-    self.last_name = last_name
-
-  
-  def identify(self):
-      print(f"IDENTITY OF HUMAN TRANSLATOR:\n\tFirst Name: {self.first_name}\n\tLast Name: {self.last_name}")
-
-  class Meta(Translator.Meta):
-    ordering = ['-role']
-
-class MachineTranslator(Translator):
-  engine_name = models.CharField(max_length=255)
-  engine_version = models.CharField(max_length=255)
-  # nerual machine translation engine todma,todgaao, engine
-  # e.g bing, yandex, google translate, DeepL,aws translate,self-trained
-  # engine
-  # engine_version
-  # year number of bing etc
-  # custom 1.0.0-.1
-
-
-  def __init__(self, is_active, role, engine_name, engine_version):
-    super().__init__(is_active=is_active, role=role)
-    self.engine_name = engine_name
-    self.engine_version = engine_version
-
-  def identify(self):
-      print(f"IDENTITY OF MACHINE TRANSLATOR:\n\tEngine Name: {self.engine_name}\n\tEngine Version: {self.engine_version}")    
-
-  class Meta(Translator.Meta):
-    ordering = ['-role']
+      print("MachineTranslator identify() method invoked demonstrating polymorphism as behavior in many forms modeling a MachineTranslator object.")
 
 class Document(models.Model):
   class TimeOfDay(models.TextChoices):
