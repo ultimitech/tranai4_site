@@ -18,8 +18,16 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
 # Document
 ###############################################################################
 
-def index_documents(request):
+def report_documents_by_dod(request):
+  document_list = Document.objects.all().order_by('dod')#sort by date instead of title??
+  return render(request, 'tranai/report_documents.html', {'document_list': document_list})
+
+def report_documents_by_title(request):
   document_list = Document.objects.all().order_by('title')#sort by date instead of title??
+  return render(request, 'tranai/report_documents.html', {'document_list': document_list})  
+
+def index_documents(request):
+  document_list = Document.objects.all().order_by('id')#sort by date instead of title??//was title??
   return render(request, 'tranai/index_documents.html', {'document_list': document_list})
 
 def show_document(request, document_id):

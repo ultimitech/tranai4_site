@@ -18,7 +18,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url 'index-documents' %}">Documents</a></li> <!--  -->
             <li><a class="dropdown-item" href="{% url 'index-all-translations' %}">Translations</a></li> <!--  -->
-            <li><a class="dropdown-item" href="{% url 'index-tasks' %}">Tasks</a></li> <!--  -->
+            <li><a class="dropdown-item" href="{% url 'index-tasks' %}">Tasks</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{% url 'index-users' %}">Users</a></li>
           </ul>
@@ -46,6 +46,18 @@
   {%  endfor %}
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Help</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Reports
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url 'report-documents-by-dod' %}">By Date of Delivery</a></li>
+            <li><a class="dropdown-item" href="{% url 'report-documents-by-title' %}">By Title</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#"></a></li>
           </ul>
         </li>
 

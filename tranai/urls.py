@@ -6,6 +6,8 @@ urlpatterns = [
     path('', views.home, name='home'),
 
     # Document
+    path('documents/report1', views.report_documents_by_dod, name='report-documents-by-dod'),
+    path('documents/report2', views.report_documents_by_title, name='report-documents-by-title'),
     path('documents/new', views.create_document, name='create-document'),
     path('documents/', views.index_documents, name='index-documents'),
     path('documents/<document_id>/', views.show_document, name='show-document'),

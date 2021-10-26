@@ -1,0 +1,39 @@
+{% extends 'tranai/base.html' %}
+
+{% block content %}
+
+<!-- <center><h2>Report Documents by Date of Delivery</h2></center> -->
+<center><h2>Report Documents</h2></center>
+&nbsp;&nbsp;
+<!-- <form class="d-flex" method="POST" action="{% url 'search-documents' %}">
+  {% csrf_token %}
+  <input class="form-control me-2" type="search" placeholder="Document Search" aria-label="Search" name="searched">
+  <button class="btn btn-success" type="submit">Search</button>
+</form>&nbsp;&nbsp; -->
+<table class="table table-hover table-striped table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col">Day</th>
+      <th scope="col">Title</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+{% for document in document_list %}
+    <tr>
+      <th scope="row"><a href="{% url 'show-document' document.id %}">{{ document.id }}</a></th> <!---->
+      <td>{{ document.dod }}</td>
+      <td>{{ document.tod }}</td>
+      <td>{{ document.dow }}</td>
+      <td>{{ document.title }}</td>
+      <td><a href="{% url 'update-document' document.id %}" class="btn btn-primary btn-xs glyphicon glyphicon-edit">Edit</a></td> <!---->
+      <td><a href="{% url 'delete-document' document.id %}">Delete</a></td> <!---->
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+{% endblock %}
